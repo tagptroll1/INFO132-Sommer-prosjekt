@@ -13,6 +13,7 @@ flake8 = "*"
 flask = "*"
 flask-restful = "*"
 flask-cors = "*"
+rethinkdb = "*"
 
 [requires]
 python_version = "3.7"
