@@ -1,6 +1,8 @@
 import os
 
 import rethinkdb
+from rethinkdb.ast import RqlMethodQuery, Table, UserError
+from rethinkdb.net import DefaultConnection
 
 from .tables import TABLES
 
