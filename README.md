@@ -4,6 +4,7 @@
 
 ## 3 Steps to pushing your changes
 Vanligste måten å få noe fra fil til lokal git storage og så til github.
+
 ### 1. Staging files
 `git add .` - Dette stager alle filene i mappen rekursivt.\
 *Dette kan også gjøres i VS Code, eller pycharm sine menyer, men det dekker jeg ikke.*  
@@ -17,7 +18,8 @@ Vanligste måten å få noe fra fil til lokal git storage og så til github.
 `git push origin master` - vil for eksempel pushe til master, men prøv å lage Pull requests istedet..
 
 ## Making a new branch
-Dette er veien å gå for hver feature man vil lage, og seinere merge det inn i master med en pull request.
+Dette er veien å gå for hver feature man vil lage, og seinere merge det inn i master med en pull request.  
+
 ### Make sure master is up to do
 `git checkout master` - bytt til master branchen\
 `git fetch -p origin` - pull det nyeste fra repoet, og fjerner døde streams.\
@@ -27,7 +29,7 @@ Dette er veien å gå for hver feature man vil lage, og seinere merge det inn i 
 `git checkout -b name-of-new-branch` - Dette brancher ut fra branchen du er på (master om du gjorde forrige steg).
 
 ## Updating branch from master
-Pass på at Master er up to date med å følge stegene over
+Pass på at Master er up to date med å følge stegene over\
 `git checkout name-of-feature-branch` - bytt til branchen du vil oppdater.\
 `git merge master` - Merger master inn i ditt repo, kan gi merge konflikter men er ofte lett å fikse.\
 `git push origin name-of-feature-branch` - pass på at mergen er live på github og.
