@@ -13,7 +13,9 @@ flake8 = "*"
 flask = "*"
 flask-restful = "*"
 flask-cors = "*"
-rethinkdb = "*"
+gevent = "*"
+gevent-websocket = "*"
+rethinkdb = "<2.4"
 
 [requires]
 python_version = "3.7"

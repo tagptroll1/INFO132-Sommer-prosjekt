@@ -1,8 +1,6 @@
 import os
 
 import rethinkdb
-from rethinkdb.ast import RqlMethodQuery, Table, UserError
-from rethinkdb.net import DefaultConnection
 
 from .tables import TABLES
 
@@ -14,7 +12,6 @@ class RethinkDB:
         self.database = os.environ.get("RETHINKDB_DATABASE", "slangeuib")
 
         self.conn = None
-
         rethinkdb.set_loop_type("gevent")
 
         with self.get_connection() as self.conn:
@@ -33,14 +30,18 @@ class RethinkDB:
 
         return created
 
-    def get_connection(self):
+    def get_connection(self, connection_database=True):
         """
         Grab a connection to the RethinkDb server
         """
-
-        return rethinkdb.connect(
-            host=self.host, port=self.port, db=self.database
-        )
+        if connection_database:
+            return rethinkdb.connect(
+                host=self.host, port=self.port, db=self.database
+            )
+        else:
+            return rethinkdb.connect(
+                host=self.host, port=self.port
+            )
 
     def create_table(
                      self,
@@ -115,7 +116,7 @@ class RethinkDB:
         if not new_connection:
             try:
                 result = query.run(self.conn)
-            except rethinkdb.ReqlDriveError as e:
+            except rethinkdb.errors.ReqlDriverError as e:
                 if e.args[0] == "Connection is closed.":
                     result = query.run(self.get_connection(connect_database))
                 else:
