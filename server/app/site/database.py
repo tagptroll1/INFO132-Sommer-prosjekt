@@ -1,8 +1,8 @@
 import os
 
-import rethinkdb
+from app.tables import TABLES
 
-from .tables import TABLES
+import rethinkdb
 
 
 class RethinkDB:
@@ -36,11 +36,12 @@ class RethinkDB:
         """
         if connection_database:
             return rethinkdb.connect(
-                host=self.host, port=self.port, db=self.database
+                host=self.host, port=self.port, 
+                db=self.database, password="password"
             )
         else:
             return rethinkdb.connect(
-                host=self.host, port=self.port
+                host=self.host, port=self.port, password="password"
             )
 
     def create_table(
@@ -142,7 +143,7 @@ class RethinkDB:
 
         return dict(result) if result else None
 
-    def get_all(self, table_name, *keys, index):
+    def get_all(self, table_name, *keys, index="id"):
         if keys:
             return self.run(
                 self.query(table_name).get_all(*keys, index=index),

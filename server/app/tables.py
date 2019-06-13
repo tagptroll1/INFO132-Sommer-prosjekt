@@ -11,9 +11,9 @@ TABLES = {
     "multi_choice": Table(
         primary_key="id",
         keys=sorted([
-            "id",               # int
+            "id",
             "tags",             # str (comma seperated)
-            "diffculity",       # int
+            "difficulty",       # int
             "question_text",    # str
             "question_answer",  # str
             "choices"           # str (comma seperated)
