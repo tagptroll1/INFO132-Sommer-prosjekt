@@ -1,53 +1,102 @@
 <script>
-	export let question = "Hva printer denne kodesnutten? \n tall = [0, 2, 3, 8, 9]\n for i in tall:\n \tif i % 2 == 0:\n\t\tprint(i, end=” “)"
-	export let answer = "b. 0 2 8"
-	export let choices = ["a. 3 9", "b. 0 2 8", "c. ingenting", "d. 2 8"]	
 
-	
-	function clickHandler(event) {
-		if (event.toElement.innerText == answer) {
-			console.log("correct")
-		}
-	}
+import Mc from "./MultipleChoice.svelte";
+
+let render = false;
+
 
 
 </script>
 
+
 <style>
+     :global(body) {
+        background-color: #70C1B3;
+    }
+
 	h1 {
-		color: aquamarine;
-	}
+		text-align: center;
+        padding-top: 200px;
+        color: #F3FFBD;
+    }
 
-	#question {
-		white-space: pre-wrap;
-	}
+    #button-wrapper {
+        width: 100%;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
 
-	button {
-		font-size: 30px;
-	}
+/* Reset */
+    button {
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        outline: 0;
+        -webkit-appearance: none;
+    }
 
+    /* Custom */
+    button {
+    display: inline-block;
+    position: relative;
+    padding: 20px 38px;
+    margin: 0.2%;
+    top: 0;
+    font-size: 20px;
+    font-family: "Open Sans", Helvetica;
+    border-radius: 4px;
+    border-bottom: 1px solid rgba( 28, 227, 125, 0.5 );
+    background: #F3FFBD;
+    color: #70C1B3;
+    box-shadow: 0px 0px 0px rgba( 15, 165, 60, 0.1 );
+    
+    -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+            transform: translateZ(0);
+    
+    -webkit-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
+        -ms-transition: all 0.2s ease;
+            transition: all 0.2s ease;
+    }
 
+    button:hover {
+    top: -10px;
+    box-shadow: 0px 10px 10px rgba( 15, 165, 60, 0.2 );
+    
+    -webkit-transform: rotateX(20deg);
+        -moz-transform: rotateX(20deg);
+        -ms-transform: rotateX(20deg);
+            transform: rotateX(20deg);
+    }
 
-	
+    button:active {
+    top: 0px;
+    box-shadow: 0px 0px 0px rgba( 15, 165, 60, 0.0 );
+    background: rgba( 20, 224, 133, 1 );
 
-
+    }
 
 </style>
 
+<div>
+    {#if render}
+        <Mc/>
+        
 
-
-<div id ="multiple_choice"> 
-	<h1>Multiple Choice</h1>
-	
-	<h2 id="question">{question}</h2>
-
-	<ul>
-		{#each choices as choice} 
-			<li id="choice">
-				<button on:click={clickHandler}>{choice}</button>
-			</li>
-		{/each}
-	</ul>
+    {:else}
+        <h1>SlangeUiB</h1>
+        <div id="button-wrapper">
+            <button id="multiple" on:click="{()=> render = !render}">Multiple Choice</button>
+	        <button id="dropdown" on:click="{()=> render = !render}">Dropdown</button>
+            <button id="code" on:click="{()=> render = !render}">Code</button>
+	    </div>
+    {/if}
 
 
 </div>
