@@ -1,6 +1,7 @@
 <script>
 
 import Mc from "./MultipleChoice.svelte";
+import ProgressBar from "./ProgressBar.svelte";
 
 let render = false;
 
@@ -86,8 +87,8 @@ let render = false;
 
 <div>
     {#if render}
-        <Mc/>
-        
+        <ProgressBar/>
+                
 
     {:else}
         <h1>SlangeUiB</h1>
