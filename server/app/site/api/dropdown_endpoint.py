@@ -1,7 +1,7 @@
 from app.site.api.ApiBase import ApiBase
 
 
-class DropDown(ApiBase):
+class Dropdown(ApiBase):
     def get(self):
         self.manager.log.info("All dropdown questions were requested")
 
