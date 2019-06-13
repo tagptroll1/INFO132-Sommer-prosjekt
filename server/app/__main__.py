@@ -1,18 +1,12 @@
 import flask
+import flask_restful
 
 import app.database as db
+from app.site.manager import Manager
 
-r = db.RethinkDB()
 
-r.create_tables()
-respose = r.insert("multi_choice",{
-    "id":2,
-    "tags":"hello, ja, nei",
-    "diffculity":2,
-    "question_text":"Yo what dis?",
-    "question_answer":"y",
-    "choices":"yes,no,maybe,y"
-}, conflict="error")
+manager = Manager()
+app = manager.app
 
-print(respose)
-print(r.get("multi_choice",2))
+if __name__ == "__main__":
+    manager.run()
