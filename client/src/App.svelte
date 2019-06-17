@@ -68,7 +68,7 @@ let render = false;
 
     button:hover {
     top: -10px;
-    box-shadow: 0px 10px 10px rgba( 15, 165, 60, 0.2 );
+    box-shadow: 0px 10px 10px rgba( 120, 165, 60, 0.2 );
     
     -webkit-transform: rotateX(20deg);
         -moz-transform: rotateX(20deg);
@@ -87,6 +87,7 @@ let render = false;
 
 <div>
     {#if render}
+        <Mc/>
         <ProgressBar/>
                 
 
