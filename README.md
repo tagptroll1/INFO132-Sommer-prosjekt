@@ -9,7 +9,7 @@ Vanligste måten å få noe fra fil til lokal git storage og så til github.
 * `git add .` - Dette stager alle filene i mappen rekursivt.
   *Dette kan også gjøres i VS Code, eller pycharm sine menyer, men det dekker jeg ikke.*  
 
-  
+
 
 ### 2. Commiting staged changes
 * `git commit -m "dette er commit meldingen"` - Dette commiter, som at det lagres lokalt på din maskin som en forandring.
@@ -84,4 +84,31 @@ Vær på branchen du vil oppdatere fra github
 * `npm run dev` vil starte development serveren (denne bruker vi for utvikling)
 
 * `npm run build` - denne kjøres for å bygge public filene som skal lastes opp til production.
+
+
+
+
+
+## RethinkDB
+
+### Install
+
+Mac OS - `brew update && brew install rethinkdb`
+
+Windows - [Download](https://download.rethinkdb.com/windows/rethinkdb-2.3.6.zip) the ZIP archive and unpack it in a directory of your choice.
+
+Arch - `sudo pacman -S rethinkdb` eller gjennom package manageren til Manjaro.
+
+
+
+
+
+## Yoink-able code
+
+```python
+lines = '''"AAA", "BBB", "Test, Test", "CCC"
+           "111", "222, 333", "XXX", "YYY, ZZZ"'''.splitlines()
+for l in  csv.reader(lines, quotechar='"', delimiter=',',
+                     quoting=csv.QUOTE_ALL, skipinitialspace=True):
+```
 
