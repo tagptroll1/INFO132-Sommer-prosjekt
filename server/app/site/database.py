@@ -37,11 +37,11 @@ class RethinkDB:
         if connection_database:
             return rethinkdb.connect(
                 host=self.host, port=self.port, 
-                db=self.database, password="password"
+                db=self.database
             )
         else:
             return rethinkdb.connect(
-                host=self.host, port=self.port, password="password"
+                host=self.host, port=self.port
             )
 
     def create_table(
