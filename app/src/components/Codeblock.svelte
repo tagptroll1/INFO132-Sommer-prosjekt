@@ -1,9 +1,14 @@
 <script>
-    import hljs from 'highlight.js';
+    import hljs from 'highlight.js/lib/highlight';
+    import python from 'highlight.js/lib/languages/python';
+    import { onMount } from "svelte";
+    hljs.registerLanguage('python', python);    
+    
+    let codeTag; 
 
-    export let code;
-    let stuff = hljs.highlight("python", code);
-
+    onMount(() => {
+        codeTag = hljs.highlightBlock(codeTag);
+    })
 </script>
 
 
@@ -15,4 +20,8 @@
     }
 </style>
 
-<pre><code class="python">{@html stuff.value}</code></pre>
+<pre>
+    <code bind:this={codeTag}>
+        <slot></slot>
+    </code>
+</pre>

@@ -29,9 +29,6 @@
 
 
 <style>
-	h1{
-		
-	}
 	p{
 		font-size: 1.2em;
 	}
@@ -62,7 +59,7 @@
 <h1>Spm 1</h1>
 <p>{question}</p>
 
-<Codeblock code={code_snippet} />
+<Codeblock>{code_snippet}</Codeblock>
 
 <ul id="choices">
 	{#each choices as choice} 
