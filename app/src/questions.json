@@ -1,0 +1,22 @@
+{
+    "questions" : [
+        {
+            "id": 0,
+            "tags" : "liste, indeksering, løkke",
+            "difficulty" : 0,
+            "question" : "Hva printer denne kodesnutten? ´´´\n tall = [0, 2, 3, 8, 9]\n for i in tall:\n \tif i % 2 == 0:\n\t\tprint(i, end=“ “)```"
+        },
+        {
+            "id": 1,
+            "tags" : "dictionary",
+            "difficulty" : 1,
+            "question" : "Hva printer denne kodesnutten ´´´\n dictionary something something"
+        },
+        {
+            "id": 2,
+            "tags" : "logikk",
+            "difficulty" : 1,
+            "question" : "Hva printer denne kodesnutten ´´´\n kode her masse kode se her er det masse kode"
+        }
+    ]
+}

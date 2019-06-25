@@ -1,6 +1,9 @@
 
 <script>
 	import Codeblock from "../../components/Codeblock.svelte";
+	import Question from "../../components/Question.svelte";
+	import Quiz from "../../components/Quiz.svelte";
+	import MultipleChoice from "../../components/MultipleChoice.svelte";
 
 	export let full_question = "Hva printer denne kodesnutten? \n´´´ tall = [0, 2, 3, 8, 9]\n for i in tall:\n \tif i % 2 == 0:\n\t\tprint(i, end=” “)´´´".split("´´´")
 	export let question = full_question[0]
@@ -27,16 +30,9 @@
 	}
 </script>
 
-
 <style>
 	p{
 		font-size: 1.2em;
-	}
-	pre{
-		color: var(--color1);
-		background: var(--bg3);
-		padding: 10px;
-		border-radius: 10px;
 	}
 	ul{
 		padding: 0;
@@ -58,6 +54,8 @@
 	
 <h1>Spm 1</h1>
 <p>{question}</p>
+<Quiz/>
+<MultipleChoice/>
 
 <Codeblock>{code_snippet}</Codeblock>
 
