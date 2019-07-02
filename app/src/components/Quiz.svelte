@@ -1,4 +1,9 @@
+
+
 <script>
+
+
+
 
 // This component is responsible for the quiz logic
 
@@ -8,6 +13,7 @@ import { questionStore } from "../stores/questions";
 import MultipleChoice  from "./MultipleChoice.svelte";
 import Question from "./Question.svelte";
 import ProgressBar from "./ProgressBar.svelte";
+
 
 
 async function getQuestions() {

@@ -6,6 +6,7 @@ import * as sapper from '@sapper/server';
 const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === 'development';
 
+
 polka() // You can also use Express
 	.use(
 		compression({ threshold: 0 }),
@@ -15,3 +16,19 @@ polka() // You can also use Express
 	.listen(PORT, err => {
 		if (err) console.log('error', err);
 	});
+
+
+
+var express = require("express");
+
+var app = express();
+
+var server = app.listen(PORT, err => {
+	if (err) console.log("error", err);
+	var address = address();
+	var host = address.address;
+	var port = address.port;
+
+	console.log("App is running at http://%s:%s", host, port);
+
+});
