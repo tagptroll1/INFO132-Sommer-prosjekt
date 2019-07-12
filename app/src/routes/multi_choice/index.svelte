@@ -1,19 +1,37 @@
 
+<script context="module">
+
+	// Fetches multichoice questions from the server
+	export function preload() {
+		return this.fetch("http://127.0.0.1:5000/multichoice").then(r => r.json()).then(data => {
+			return { data };
+		});
+	}
+</script>
+	
+
 <script>
+
+	export let data;
+
+	import { questionStore } from "../../questionStore";
+
+	// Storing the questions to be presented in a global Svelte store
+	for (let i = 0; i < data.length; i++) {
+		$questionStore[i] = data[i];
+	}
+	console.log($questionStore)
+
+	// Quiz logic variables
+
+	let currentQuestion = 0;
+
+
+	import ProgressBar from "../../components/ProgressBar.svelte";
+	import MultipleChoiceAlternatives from "../../components/MultipleChoiceAlternatives.svelte";
+	import QuestionText from "../../components/QuestionText.svelte";
 	import Codeblock from "../../components/Codeblock.svelte";
-	import Question from "../../components/Question.svelte";
-	import Quiz from "../../components/Quiz.svelte";
-	import MultipleChoice from "../../components/MultipleChoice.svelte";
-
-	export let full_question = "Hva printer denne kodesnutten? \n´´´ tall = [0, 2, 3, 8, 9]\n for i in tall:\n \tif i % 2 == 0:\n\t\tprint(i, end=” “)´´´".split("´´´")
-	export let question = full_question[0]
-	export let code_snippet = full_question[1]
-
-	export let answer = "b. 0 2 8"
-	export let choices = ["a. 3 9", "b. 0 2 8", "c. ingenting", "d. 2 8"]	
-
-	export let hint = "Modulo operatoren er brukt til å finne resten av et opprinnelig heltall etter en divisjon med et annet tall" + 
-	". For eksempel vil 7 mod 3 gi en rest av heltallet på 7 - (2*3) = 1, mens 9 mod 3 gir en rest på 9 - (3*3) = 0."
+	
 
 
 	// Function that handles the choice a user makes
@@ -31,44 +49,16 @@
 </script>
 
 <style>
-	p{
-		font-size: 1.2em;
-	}
-	ul{
-		padding: 0;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-	}
-	li{
-		list-style: none;
-	}
-	button{
-		border: unset;
-		background-color: unset;
-	}
+
 
 </style>
 
 
 	
-<h1>Spm 1</h1>
-<p>{question}</p>
-<Quiz/>
-<MultipleChoice/>
+<h1>Spørsmål 1</h1>
 
-<Codeblock>{code_snippet}</Codeblock>
 
-<ul id="choices">
-	{#each choices as choice} 
-		<li>
-			{#if choice == answer}
-			<button id="correct" on:click={clickHandler}>{choice}</button>
-			{:else}
-			<button on:click={clickHandler}>{choice}</button>
-			{/if}
-		</li>
-	{/each}
-</ul>
+<QuestionText currentQuestion={$questionStore[currentQuestion]}/>
+<Codeblock> { $questionStore[currentQuestion]["question_codesnippet"] }</Codeblock>
+<MultipleChoiceAlternatives currentQuestion={$questionStore[currentQuestion]}/>
 
-<p id="hint">{hint}</p>

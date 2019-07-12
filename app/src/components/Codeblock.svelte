@@ -21,7 +21,7 @@
 </style>
 
 <pre>
-    <code bind:this={codeTag}>
+    <code bind:this={ codeTag }>
         <slot></slot>
     </code>
 </pre>
