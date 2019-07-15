@@ -16,19 +16,3 @@ polka() // You can also use Express
 	.listen(PORT, err => {
 		if (err) console.log('error', err);
 	});
-
-
-
-var express = require("express");
-
-var app = express();
-
-var server = app.listen(PORT, err => {
-	if (err) console.log("error", err);
-	var address = address();
-	var host = address.address;
-	var port = address.port;
-
-	console.log("App is running at http://%s:%s", host, port);
-
-});
