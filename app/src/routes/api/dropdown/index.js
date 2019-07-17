@@ -1,3 +1,4 @@
+
 function formatJson(json) {
     json.forEach(entry => {
         const alternatives = entry.choices;
@@ -12,12 +13,13 @@ export function get(req, res) {
         ? window.fetch
         : require("node-fetch").default;
 
-    fetch("http://localhost:5000/multi_choice")
+    fetch("http://localhost:5000/dropdown")
         .then(res => res.json())
         .then(val => {
             const returnVal = formatJson(val);
             res.setHeader("Content-Type", "application/json");
             res.end(JSON.stringify(returnVal));
+            
         })
         .catch(err => ((res.statusCode = 500), res.end({ err })));
 }

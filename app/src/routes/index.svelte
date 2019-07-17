@@ -73,7 +73,7 @@
 <h1>SlangeUiB</h1>
 <div id="button-wrapper">
 	<a href="/multi_choice">Multiple Choice</a>
-	<a href="/multi_choice">Dropdown</a>
+	<a href="/dropdown">Dropdown</a>
 	<a href="/multi_choice">Code</a>
 </div>
 
