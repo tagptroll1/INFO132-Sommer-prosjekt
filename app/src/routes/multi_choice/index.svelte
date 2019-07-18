@@ -25,28 +25,24 @@
   // Storing the questions to be presented in a global Svelte store
 
 	for (let i = 0; i < questions.length; i++) {
-		$questionStore[i] = questions[i];
+	    $questionStore[i] = questions[i];
   }
-  
-  // Quiz logic
   // Current question --> $currentQuestion
-
-
 
 </script>
 
 <style>
-  h2 {
+  h1 {
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     text-align: center;
   }
 </style>
 
-<h2>Multiple choice</h2>
+<h1>Multiple choice</h1>
 
 
-<QuestionText currentQuestion={$questionStore[$currentQuestion]}/>
+<QuestionText/>
 <Codeblock> { $questionStore[$currentQuestion]["question_codesnippet"] }</Codeblock>
-<MultipleChoiceAlternatives currentQuestion={$questionStore[$currentQuestion]}/>
-<ProgressBar numQuestions={$questionStore.length}/> 
+<MultipleChoiceAlternatives/>
+<ProgressBar/> 

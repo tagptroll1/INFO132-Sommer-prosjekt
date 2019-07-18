@@ -1,15 +1,13 @@
 
 <script>
     import { currentQuestion } from "../stores/currentQuestion";
+    import { questionStore } from "../stores/questionStore";
 
-    //Initially set the progressbar to no progress :)
     let myBarWidth = 0;
-    
-    export let numQuestions = 0;
     
     function addProgress() {
 
-        myBarWidth += 100 / (numQuestions - 1);
+        myBarWidth += 100 / ($questionStore.length - 1);
         if (myBarWidth > 100) {
             myBarWidth = 100;
         }
@@ -43,7 +41,7 @@
       <div id="myBar"></div>
    </div>
    <!-- Buttons -->
-    {#if $currentQuestion != numQuestions - 1}
+    {#if $currentQuestion != $questionStore.length - 1}
         <button id="next" on:click={addProgress}>Neste</button>
     {:else}
         <button id="end">Fullfør quiz</button>

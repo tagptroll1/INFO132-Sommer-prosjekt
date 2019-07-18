@@ -1,5 +1,8 @@
 <script>
-export let currentQuestion;
+
+import { questionStore } from "../stores/questionStore.js"
+import { currentQuestion } from "../stores/currentQuestion.js"
+
 </script>
 
 <style>
@@ -15,14 +18,14 @@ button {
 		text-decoration:none;
 		font-family:'Roboto',sans-serif;
 		font-weight:300;
-		color:rgb(0, 0, 0);
+		color:black;
 		text-align:center;
 		transition: all 0.15s;
 		background-color: transparent;
 	}
 	button:hover {
 		color:#FFFFFF;
-		background-color: rgb(0, 0, 0);
+		background-color:black;
 	}
 	#choices {
 		padding: 40px;
@@ -35,7 +38,7 @@ button {
 
 <div id="choices">
 		<ul>
-			{#each currentQuestion["alternatives"] as alternative}
+			{#each $questionStore[$currentQuestion]["alternatives"] as alternative}
 				<li>
 					<button> {alternative} </button>
 				</li>
