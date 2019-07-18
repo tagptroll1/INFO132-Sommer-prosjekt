@@ -13,7 +13,7 @@ export function get(req, res) {
         ? window.fetch
         : require("node-fetch").default;
 
-    fetch("http://localhost:5000/dropdown")
+    fetch("http://localhost:5000/dropdown/set/2")
         .then(res => res.json())
         .then(val => {
             const returnVal = formatJson(val);
