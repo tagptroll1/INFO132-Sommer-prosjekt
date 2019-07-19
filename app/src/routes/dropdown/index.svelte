@@ -12,10 +12,14 @@
 <script>
   export let questions;
   import Dropdown from "../../components/Dropdown.svelte";
-  console.log(questions)
 </script>
 
 <style>
+  h1{
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    text-align: center;
+  }
   h2 {
     font-family: "Roboto", sans-serif;
     font-weight: 300;
@@ -23,7 +27,21 @@
   }
 </style>
 
-<h1>Hello world</h1>
+<!---
+questions have the following variants:
+    tags: List
+    difficulty: int
+    question_text: str
+    question_code: str
+    question_answer: str
+    choices: List
+--->
+
+
+
+<h1>Dropdown</h1>
 {#each questions as question}
   <h2>{question.question_text}</h2>
+  <p>{question.question_code}</p>
+  <Dropdown currentChoices={question} />
 {/each}

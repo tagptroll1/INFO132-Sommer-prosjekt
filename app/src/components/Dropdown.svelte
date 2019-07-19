@@ -1,28 +1,38 @@
 <script>
   import Codeblock from "./Codeblock.svelte";
   export let currentChoices;
+  export let correctAnswer;
+  let selected;
+  let correct = false;
+  
 
-  function handleClick(e) {
-    console.log(e.target.innerText);
-  }
+  function handleClick() {
+    console.log(selected)
+    console.log("handleClick ran")
+    if(selected == currentChoices.question_answer){
+      correct = true;
+    }
+    else{
+      correct = false;
+    }
+	}
 </script>
 
 <style>
-  #choices {
-    padding: 40px;
-  }
-
-  li {
-    list-style: none;
-  }
+  
 </style>
 
-<div id="choices">
-  <ul>
+
+	<select bind:value={selected}>
     {#each currentChoices['alternatives'] as alternative}
-      <li on:click={handleClick}>
-        <Codeblock>{alternative}</Codeblock>
-      </li>
+      <option on:click={handleClick} value={alternative}>
+				{alternative}
+			</option>
     {/each}
-  </ul>
-</div>
+  </select>
+
+
+<p>selected question {selected}</p>
+{#if correct}
+  <p>You picked the right answer!</p>
+{/if}
