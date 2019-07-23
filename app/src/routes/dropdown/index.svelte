@@ -42,7 +42,7 @@
   }
 </style>
 
-<h2>Dropdown</h2>
+<h2>Multiple choice</h2>
 
 
 <QuestionText currentQuestion={$questionStore[$currentQuestion]}/>
