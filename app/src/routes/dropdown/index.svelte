@@ -11,7 +11,22 @@
 
 <script>
   export let questions;
+
   import Dropdown from "../../components/Dropdown.svelte";
+  import ProgressBar from "../../components/ProgressBar.svelte";
+  import QuestionText from "../../components/QuestionText.svelte";
+  import Codeblock from "../../components/Codeblock.svelte";
+
+  import { questionStore } from "../../stores/questionStore";
+  import { currentQuestion } from "../../stores/currentQuestion";
+
+  for (let i = 0; i < questions.length; i++) {
+    $questionStore[i] = questions[i];
+  }
+
+  // Current question --> $currentQuestion
+
+
 </script>
 
 <style>
@@ -27,21 +42,10 @@
   }
 </style>
 
-<!---
-questions have the following variants:
-    tags: List
-    difficulty: int
-    question_text: str
-    question_code: str
-    question_answer: str
-    choices: List
---->
+<h2>Dropdown</h2>
 
 
-
-<h1>Dropdown</h1>
-{#each questions as question}
-  <h2>{question.question_text}</h2>
-  <p>{question.question_code}</p>
-  <Dropdown currentChoices={question} />
-{/each}
+<QuestionText currentQuestion={$questionStore[$currentQuestion]}/>
+<Codeblock> { $questionStore[$currentQuestion]["question_code"] }</Codeblock>
+<ProgressBar numQuestions={$questionStore.length}/> 
+<Dropdown currentQuestion={$questionStore[$currentQuestion]}/>

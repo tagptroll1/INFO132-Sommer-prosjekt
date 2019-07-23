@@ -11,19 +11,10 @@
 
 <script>
   export let questions;
-  import MultipleChoice from "../../components/MultipleChoice.svelte";
 </script>
 
 <style>
-  h2 {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    text-align: center;
-  }
+
 </style>
 
 <h1>Multichoice</h1>
-{#each questions as question}
-  <h2>{question.question_text}</h2>
-  <MultipleChoice currentChoices={question} />
-{/each}
