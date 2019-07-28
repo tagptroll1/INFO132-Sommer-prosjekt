@@ -11,12 +11,10 @@
 </script>
 
 <script>
-
-
   import ProgressBar from "../../components/ProgressBar.svelte";
-	import MultipleChoiceAlternatives from "../../components/MultipleChoiceAlternatives.svelte";
-	import QuestionText from "../../components/QuestionText.svelte";
-	import Codeblock from "../../components/Codeblock.svelte";
+  import MultipleChoiceAlternatives from "../../components/MultipleChoiceAlternatives.svelte";
+  import QuestionText from "../../components/QuestionText.svelte";
+  import Codeblock from "../../components/Codeblock.svelte";
 
   export let questions;
 
@@ -24,11 +22,10 @@
   import { currentQuestion } from "../../stores/currentQuestion";
   // Storing the questions to be presented in a global Svelte store
 
-	for (let i = 0; i < questions.length; i++) {
-	    $questionStore[i] = questions[i];
+  for (let i = 0; i < questions.length; i++) {
+    $questionStore[i] = questions[i];
   }
   // Current question --> $currentQuestion
-
 </script>
 
 <style>
@@ -41,8 +38,7 @@
 
 <h1>Multiple choice</h1>
 
-
-<QuestionText/>
-<Codeblock> { $questionStore[$currentQuestion]["question_codesnippet"] }</Codeblock>
-<MultipleChoiceAlternatives/>
-<ProgressBar/> 
+<QuestionText />
+<Codeblock>{$questionStore[$currentQuestion]['question_code']}</Codeblock>
+<MultipleChoiceAlternatives />
+<ProgressBar />
