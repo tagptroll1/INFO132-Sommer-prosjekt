@@ -1,13 +1,18 @@
-export function get(req, res) {
-    const fetch = process.browser
-        ? window.fetch
-        : require("node-fetch").default;
+export async function get(req, res) {
+    try {
+        const fetch = process.browser
+            ? window.fetch
+            : require("node-fetch").default;
 
-    fetch("http://localhost:5000/multi_choice")
-        .then(res => res.json())
-        .then(val => {
-            res.setHeader("Content-Type", "application/json");
-            res.end(JSON.stringify(val));
-        })
-        .catch(err => ((res.statusCode = 500), res.end({ err })));
+        const resp = await fetch(
+            "http://localhost:5000/api/v1/multi_choice/set/2"
+        );
+        const json = await resp.json();
+
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify(json));
+    } catch (error) {
+        res.statusCode = 500;
+        res.end({ error });
+    }
 }

@@ -1,25 +1,16 @@
+export async function get(req, res) {
+    try {
+        const fetch = process.browser
+            ? window.fetch
+            : require("node-fetch").default;
 
-function formatJson(json) {
-    json.forEach(entry => {
-        const alternatives = entry.choices;
-        delete entry["choices"];
-        entry["alternatives"] = alternatives;
-    });
-    return json;
-}
+        const resp = await fetch("http://localhost:5000/api/v1/dropdown/set/2");
+        const json = await resp.json();
 
-export function get(req, res) {
-    const fetch = process.browser
-        ? window.fetch
-        : require("node-fetch").default;
-
-    fetch("http://localhost:5000/dropdown/set/2")
-        .then(res => res.json())
-        .then(val => {
-            const returnVal = formatJson(val);
-            res.setHeader("Content-Type", "application/json");
-            res.end(JSON.stringify(returnVal));
-            
-        })
-        .catch(err => ((res.statusCode = 500), res.end({ err })));
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify(json));
+    } catch (error) {
+        res.statusCode = 500;
+        res.end({ error });
+    }
 }

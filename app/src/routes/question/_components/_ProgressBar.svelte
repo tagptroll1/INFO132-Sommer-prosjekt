@@ -1,6 +1,6 @@
 <script>
-  import { currentQuestion } from "../stores/currentQuestion";
-  import { questionStore } from "../stores/questionStore";
+  import { question } from "../../../stores/question";
+  import { questionStore } from "../../../stores/questionStore";
 
   let myBarWidth = 0;
 
@@ -10,7 +10,7 @@
       myBarWidth = 100;
     }
     document.getElementById("myBar").style.width = myBarWidth + "%";
-    $currentQuestion++;
+    question.next();
   }
 </script>
 
@@ -36,7 +36,7 @@
   <div id="myBar" />
 </div>
 <!-- Buttons -->
-{#if $currentQuestion != $questionStore.length - 1}
+{#if $question.index != $questionStore.length - 1}
   <button id="next" on:click={addProgress}>Neste</button>
 {:else}
   <button id="end">Fullfør quiz</button>
