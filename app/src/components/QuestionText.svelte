@@ -1,5 +1,6 @@
 <script>
-export let currentQuestion;
+  import { currentQuestion } from "../stores/currentQuestion";
+  import { questionStore } from "../stores/questionStore";
 </script>
 
-{ currentQuestion["question_text"] }
+{$questionStore[$currentQuestion]['question_text']}

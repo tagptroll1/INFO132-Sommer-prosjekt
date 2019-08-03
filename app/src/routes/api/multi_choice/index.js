@@ -1,12 +1,3 @@
-function formatJson(json) {
-    json.forEach(entry => {
-        const alternatives = entry.choices;
-        delete entry["choices"];
-        entry["alternatives"] = alternatives;
-    });
-    return json;
-}
-
 export function get(req, res) {
     const fetch = process.browser
         ? window.fetch
@@ -15,9 +6,8 @@ export function get(req, res) {
     fetch("http://localhost:5000/multi_choice")
         .then(res => res.json())
         .then(val => {
-            const returnVal = formatJson(val);
             res.setHeader("Content-Type", "application/json");
-            res.end(JSON.stringify(returnVal));
+            res.end(JSON.stringify(val));
         })
         .catch(err => ((res.statusCode = 500), res.end({ err })));
 }
