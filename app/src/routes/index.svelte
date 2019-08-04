@@ -1,61 +1,100 @@
+<script>
+	import Logo from '../components/LogoUIB.svelte';
+</script>
 <style>
-  h1 {
-    text-align: center;
-    padding-top: 200px;
-    color: black;
-  }
 
-  #button-wrapper {
-    width: 100%;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+	nav{
+		display: flex;
+		justify-content: space-evenly;
+	}
 
-  /* Reset */
-  a {
-    background: transparent;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-    outline: 0;
-    -webkit-appearance: none;
-  }
+	a,h1{
+		color: var(--color-main);
+	}
+	h1{
+		text-align: center;
+		font-weight: 300;
+		font-size: 3.2em;
+	}
+	a{
+		text-decoration: none;
+		padding: 10px 25px;
+		margin: 0 5px;
+		/* yes you can use a background as a foreground */
+		color: var(--bg-main);
+		background-color: var(--bg-focus);
+		border-radius: 8px 4px;
 
-  /* Custom */
-  a {
-    display: inline-block;
-    position: relative;
-    padding: 20px 38px;
-    margin: 0.2%;
-    top: 0;
-    font-size: 20px;
-    font-family: "Open Sans", Helvetica;
-    border-radius: 4px;
-    border-bottom: 1px solid rgba(28, 227, 125, 0.5);
-    background: #f3ffbd;
-    color: #70c1b3;
-    box-shadow: 0px 0px 0px rgba(15, 165, 60, 0.1);
+		position: relative;
+	}
+	a::after{
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0; right: 0;
+		margin: 0 auto;
+		width: 0;
+		height: 3px;
+		border-radius: 1000px;
+		background-color: var(--bg-main);
 
-    transform: translateZ(0);
-    transition: all 0.2s ease;
-  }
+		transition: width .3s ease;
+	}
+	a:focus::after,a:hover::after{
+		width: 25%;
+	}
+	/* a:visited,
+	a:active{
+					do we really care about this? ...no
+					...anyway ... i googled "BEST SONG EVER"
+					this did not show up in the results...
+					https://www.youtube.com/watch?v=tA7a_EEgwrw
+					..it should tho..
+	} */
 
-  a:hover {
-    top: -10px;
-    box-shadow: 0px 10px 10px rgba(120, 165, 60, 0.2);
-    transform: rotateX(20deg);
-  }
+	figure{
+		position: fixed;
+		z-index: -1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+		width: 100vw;
+	}
 
-  a:active {
-    top: 0px;
-    box-shadow: 0px 0px 0px rgba(15, 165, 60, 0);
-    background: rgba(20, 224, 133, 1);
-  }
 </style>
 
-<h1>SlangeUiB</h1>
-<div id="button-wrapper">
-  <a href="/question/1">Start</a>
-</div>
+<!-- just.... read about the article / section tags ...  -->
+<article>
+	<h1>UiB Python</h1>
+	<!-- NOT a wrapper .....!!! -->
+	<!-- 
+		it's ONLY here for the semantics 
+		we can remove it (no biggie)...
+		but if we want more links then ..this...
+
+		...also we do not put an ul in a nav and li in the ul 
+		that would just be silly...
+		
+		.. and we are not silly are we?
+	 -->
+	<nav>
+		<a href="/question/1">Start</a>
+	</nav>
+</article>
+
+<!-- BY THE WAY -->
+
+<!-- 
+	if all you want is that one clickable linky 
+	then this is even more correct 
+
+	- nav
+		- h1 - some dum title
+		- a - some link with some text 
+	DO NOT.-> wrap the A around the H1 
+ -->
+
+<figure>
+	<Logo/>
+</figure>
