@@ -25,6 +25,12 @@ function createQuestion() {
 
     function gotoFirst() {
         set(get(questionStore)[0]);
+        index = 0;
+    }
+
+    function getIndex() {
+        set(get(questionStore)[index]);
+        return index;
     }
 
     return {
@@ -33,7 +39,7 @@ function createQuestion() {
         next: () => nextQuestion(),
         prev: () => prevQuestion(),
         reset: () => gotoFirst(),
-        index: () => index,
+        index: () => getIndex(),
     };
 }
 

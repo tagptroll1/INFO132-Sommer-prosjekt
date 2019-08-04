@@ -1,22 +1,29 @@
 <script>
   import { question } from "../../../stores/question";
   import { questionStore } from "../../../stores/questionStore";
+  import { afterUpdate } from "svelte";
 
+  let myBar;
   let myBarWidth = 0;
+  let ind = 1;
+  let max = 1;
 
-  function addProgress() {
+  afterUpdate(() => {
+    $question;
     myBarWidth += 100 / ($questionStore.length - 1);
     if (myBarWidth > 100) {
       myBarWidth = 100;
     }
-    document.getElementById("myBar").style.width = myBarWidth + "%";
-    question.next();
-  }
+    myBar.style.width = myBarWidth + "%";
+    ind = question.index() + 1;
+    max = $questionStore.length;
+  });
 </script>
 
 <style>
   #myProgress {
-    width: 100%;
+    position: relative;
+    width: 80%;
     background-color: #ddd;
     margin-bottom: 20px;
   }
@@ -29,15 +36,16 @@
     /* transition for smooth animation */
     transition: all ease-in-out 0.5s;
   }
+
+  span {
+    position: absolute;
+    top: 10%;
+    left: 45%;
+  }
 </style>
 
 <!-- Progress bar -->
 <div id="myProgress">
-  <div id="myBar" />
+  <span>{ind} / {max}</span>
+  <div id="myBar" bind:this={myBar} />
 </div>
-<!-- Buttons -->
-{#if $question.index != $questionStore.length - 1}
-  <button id="next" on:click={addProgress}>Neste</button>
-{:else}
-  <button id="end">Fullfør quiz</button>
-{/if}

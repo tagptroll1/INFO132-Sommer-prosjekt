@@ -6,7 +6,7 @@
 </script>
 
 <script>
-  const type = "multi_choice";
+  const type = "dropdown";
   export let slug;
 
   import Question from "./_Question.svelte";
@@ -18,13 +18,19 @@
       .then(resp => resp.json())
       .then(json => {
         $questionStore = json;
-        question.setQ(slug);
+        question.setQ(0);
       })
       .catch(err => console.error(err));
   } else {
-    $question = $question;
+    $question;
   }
 </script>
+
+<style>
+  :global(main) {
+    justify-content: unset;
+  }
+</style>
 
 {#if $question}
   <Question question={$question} />

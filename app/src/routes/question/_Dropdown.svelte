@@ -7,4 +7,3 @@
 
 <QuestionText />
 <Dropdown />
-<ProgressBar />

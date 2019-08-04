@@ -1,5 +1,4 @@
 <script>
-  import ProgressBar from "./_components/_ProgressBar.svelte";
   import MultipleChoiceAlternatives from "./_components/_MultipleChoiceAlternatives.svelte";
   import QuestionText from "./_components/_QuestionText.svelte";
   import Codeblock from "./_components/_Codeblock.svelte";
@@ -18,4 +17,3 @@
 <QuestionText />
 <Codeblock />
 <MultipleChoiceAlternatives />
-<ProgressBar />

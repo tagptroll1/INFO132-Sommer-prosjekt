@@ -1,82 +1,43 @@
-/* ALWAYS FIRST! */
-/* how a font import looks when importing multiple versions of the same font */
 @font-face {
-	/* the name can be anything tbh... */
-	font-family: 'Raleway';
-	/* path + font type (file type) lol*/
-	src: url('font/Raleway/Raleway-Regular.ttf') format('truetype');
-	font-weight: normal;
-	/* style = normal / italic ...is there more?*/
-	font-style: normal;
+    font-family: "Raleway";
+    src: url("font/Raleway/Raleway-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-	/* 	
-		:notice that the name ('Raleway') repeats (it has to) 
-		so we can assign different properties to the same font name 
-	*/
-	font-family: 'Raleway';
-	src: url('font/Raleway/Raleway-Bold.ttf') format('truetype');
-	font-weight: bold; 
-	font-style: normal;
+    font-family: "Raleway";
+    src: url("font/Raleway/Raleway-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
 }
 @font-face {
-	font-family: 'Raleway';
-	src: url('font/Raleway/Raleway-Light.ttf') format('truetype');
-	font-weight: 300; /* corresponds to "light" */
-	font-style: normal;
+    font-family: "Raleway";
+    src: url("font/Raleway/Raleway-Light.ttf") format("truetype");
+    font-weight: 300; /* corresponds to "light" */
+    font-style: normal;
 }
 
-:root{
-	/* main font, if there ever should be a need for a "secondary" */
-	--font-main: 'Raleway', sans-serif; /* +  sansserif fallback....*/
+:root {
+    --font-main: "Raleway", sans-serif;
+    --color-main: #2c2c2c;
+    --color-focus: rgb(0, 0, 0);
+    --color-aside: rgb(54, 0, 0);
 
-	/* color-main => all the boring shit */
-	--color-main: #2c2c2c;
-	/* things that should be slightly more interesting ...*/
-	--color-focus: rgb(0, 0, 0); /* make this betta */
-	/* things that are somewhat un' interesting.. like "tips" or whatever... */
-	--color-aside: rgb(54, 0, 0); /* make this betta */
-
-	/* the main color / theme of the page ..nice colors!*/
-	--bg-main: #ffffff;
-	/* the aside .. i explaineded this.. */
-	--bg-aside: #f5f5f5;
-	/* the color we use to make something stand out ... like buttons and stuff.. */
-	--bg-focus: #cf3c3a;
+    --bg-main: #ffffff;
+    --bg-aside: #f5f5f5;
+    --bg-focus: #cf3c3a;
 }
 
 body {
-	/* secondary font fallback ...not really needed but uib ...lol... */
-	/* 
-		also there is no point in setting weights in parent containers 
-		as they are pretty much always overridden by browser defaults 
-	*/
-	font-family: var(--font-main,sans-serif);
-
-	/* set margin somwhere else (but DO set margin somwhere) */
-	margin: 0;
-
-	/* 
-		dont be fancy ...be functional ..like ur not a fucking designer
-		try to make things not overly shitty and fancy ... 
-		because it will burn the eyes of the studens 
-		literally out of their skull....
-		FORM.... follows...............function....
-		i will now eat hamburgers ... and more beer...shit.
-		Let the damn designers spend hours on doing nothing but changing 
-		some random color into some other slightly less trash color
-		and watch someone pay this person MONEY for it ... like what the fuck.
-	*/
-	color: var(--color-maintext,black);
-	background-color: var(--bg-main,white);
+    font-family: var(--font-main, sans-serif);
+    margin: 0;
+    color: var(--color-maintext, black);
+    background-color: var(--bg-main, white);
 }
 
-/* could prolly remove this too... */
 code {
-	/* relevant https://www.youtube.com/watch?v=y8d-nz0GBL8 */
-	font-family: menlo, inconsolata, monospace;
-	font-size: calc(1em - 2px);
-	padding: 0.2em 0.4em;
-	border-radius: 2px;
+    font-family: menlo, inconsolata, monospace;
+    font-size: calc(1em - 2px);
+    padding: 0.2em 0.4em;
+    border-radius: 2px;
 }
-
