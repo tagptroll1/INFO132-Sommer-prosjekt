@@ -4,6 +4,14 @@
   let pieces = $question.question_code.split("@@");
 </script>
 
+<style>
+  pre,
+  code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+</style>
+
 <code>
   {pieces[0]}
   <select
