@@ -10,27 +10,20 @@
   export let slug;
 
   import Question from "./_Question.svelte";
-  import { questionStore } from "../../stores/questionStore";
-  import { question } from "../../stores/question";
+  import questions from "../../stores/questions";
+  import question from "../../stores/question";
 
-  if ($questionStore.length <= 0 && process.browser) {
+  if ($questions.length <= 0 && process.browser) {
     fetch(`api/${type}`) // Change this to get different questions
       .then(resp => resp.json())
       .then(json => {
-        $questionStore = json;
-        question.setQ(0);
+        $questions = json;
       })
       .catch(err => console.error(err));
   } else {
     $question;
   }
 </script>
-
-<style>
-  :global(main) {
-    justify-content: unset;
-  }
-</style>
 
 {#if $question}
   <Question question={$question} />

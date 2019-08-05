@@ -1,22 +1,19 @@
 <script>
-  import { question } from "../../../stores/question";
-  import { questionStore } from "../../../stores/questionStore";
+  import question from "../../../stores/question";
+  import questions from "../../../stores/questions";
+  import index from "../../../stores/index";
   import { afterUpdate } from "svelte";
 
   let myBar;
   let myBarWidth = 0;
-  let ind = 1;
-  let max = 1;
 
   afterUpdate(() => {
     $question;
-    myBarWidth += 100 / ($questionStore.length - 1);
+    myBarWidth += 100 / ($questions.length - 1);
     if (myBarWidth > 100) {
       myBarWidth = 100;
     }
     myBar.style.width = myBarWidth + "%";
-    ind = question.index() + 1;
-    max = $questionStore.length;
   });
 </script>
 
@@ -46,6 +43,6 @@
 
 <!-- Progress bar -->
 <div id="myProgress">
-  <span>{ind} / {max}</span>
+  <span>{$index + 1} / {$questions.length}</span>
   <div id="myBar" bind:this={myBar} />
 </div>

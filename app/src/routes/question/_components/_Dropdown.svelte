@@ -1,5 +1,5 @@
 <script>
-  import { question } from "../../../stores/question";
+  import question from "../../../stores/question";
   let selected;
   $: pieces = $question.question_code.split("@@");
 </script>

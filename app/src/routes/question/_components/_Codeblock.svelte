@@ -1,5 +1,5 @@
 <script>
-  import { question } from "../../../stores/question";
+  import question from "../../../stores/question";
   import hljs from "highlight.js/lib/highlight";
   import python from "highlight.js/lib/languages/python";
   import { afterUpdate } from "svelte";

@@ -1,6 +1,5 @@
 <script>
-  import { question } from "../../../stores/question";
-  import { questionStore } from "../../../stores/questionStore.js";
+  import question from "../../../stores/question";
 </script>
 
 <style>
