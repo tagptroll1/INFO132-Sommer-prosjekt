@@ -4,9 +4,11 @@ export async function get(req, res) {
             ? window.fetch
             : require("node-fetch").default;
 
-        const url = process.env.API_URL;
+        const url = `${
+            process.env.API_URL
+        }/api/v1/questions?dropdown=2&multi_choice=2`;
 
-        const resp = await fetch(`${url}/api/v1/multi_choice/set/2`);
+        const resp = await fetch(url);
         const json = await resp.json();
 
         res.setHeader("Content-Type", "application/json");
