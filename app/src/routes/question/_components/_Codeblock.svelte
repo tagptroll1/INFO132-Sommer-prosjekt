@@ -5,10 +5,7 @@
   import { afterUpdate } from "svelte";
   hljs.registerLanguage("python", python);
 
-  let codeTag;
   $: highlighted = hljs.highlight("python", $question.question_code);
-
-  afterUpdate(() => {});
 </script>
 
 <style>
@@ -20,7 +17,7 @@
 </style>
 
 <pre>
-  <code bind:this={codeTag}>
+  <code>
     {@html highlighted.value}
   </code>
 </pre>
