@@ -1,19 +1,18 @@
 <script>
-export let segment;
+  export let segment;
 </script>
 
 <style>
-	main {
-		position: relative;
-		max-width: 60%;
-		min-height: 100vh;
-		background-color: white;
-		padding: 2em;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
+  main {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
 </style>
 
 <main>
-	<slot></slot>
+  <slot />
 </main>

@@ -4,9 +4,7 @@ export async function get(req, res) {
             ? window.fetch
             : require("node-fetch").default;
 
-        const resp = await fetch(
-            "http://localhost:5000/api/v1/multi_choice/set/2"
-        );
+        const resp = await fetch("http://localhost:5000/api/v1/dropdown/set/2");
         const json = await resp.json();
 
         res.setHeader("Content-Type", "application/json");
