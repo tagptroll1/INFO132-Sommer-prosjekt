@@ -1,7 +1,19 @@
 <script>
   import question from "../../../stores/question";
+  import hljs from "highlight.js/lib/highlight";
+  import python from "highlight.js/lib/languages/python";
+  import { beforeUpdate } from "svelte";
+  hljs.registerLanguage("python", python);
+
   let selected;
+  let piece1 = "";
+  let piece2 = "";
   $: pieces = $question.question_code.split("@@");
+
+  beforeUpdate(() => {
+    piece1 = hljs.highlight("python", pieces[0]);
+    piece2 = hljs.highlight("python", pieces[1]);
+  });
 </script>
 
 <style>
@@ -15,13 +27,13 @@
 
 <pre>
   <code>
-    {pieces[0]}<select
+    {@html piece1.value} <select
       bind:value={selected}
       on:change={() => console.log(selected == $question.question_answer)}>
       <option value="" />
       {#each $question.alternatives as item}
         <option value={item}>{item}</option>
       {/each}
-    </select>{pieces[1] || ''}
+    </select> {@html piece2.value || ''}
   </code>
 </pre>
