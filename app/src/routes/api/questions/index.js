@@ -8,6 +8,7 @@ export async function get(req, res) {
             process.env.API_URL
         }/api/v1/questions?dropdown=2&multi_choice=2`;
 
+        console.log(url);
         const resp = await fetch(url);
         const json = await resp.json();
 
