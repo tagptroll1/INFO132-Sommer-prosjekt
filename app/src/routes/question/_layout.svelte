@@ -12,9 +12,9 @@
 
 <style>
   header {
-    position: relative;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     width: 100%;
   }
 
@@ -29,22 +29,20 @@
 
   button {
     width: 8rem;
-    align-self: flex-end;
   }
 </style>
 
 <header>
-  <ProgressBar />
-</header>
-<article>
-
-  <section>
-    <slot />
-  </section>
+  <ProgressBar len={$questions.length} />
   <!-- Buttons -->
   {#if $index != $questions.length - 1}
     <button id="next" on:click={next}>Neste</button>
   {:else}
     <button id="end">Fullfør quiz</button>
   {/if}
+</header>
+<article>
+  <section>
+    <slot />
+  </section>
 </article>
