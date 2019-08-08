@@ -3,7 +3,10 @@ import compression from "compression";
 import express from "express";
 import session from "express-session";
 import bodyParser from "body-parser";
+import sessionFileStore from "session-file-store";
 import * as sapper from "@sapper/server";
+
+const FileStore = sessionFileStore(session);
 
 const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === "development";
@@ -17,6 +20,9 @@ const sess = {
     },
     resave: false,
     saveUninitialized: true,
+    store: new FileStore({
+        path: process.env.NOW ? `/tmp/sessions` : `.sessions`,
+    }),
 };
 
 if (app.get("env") === "production") {

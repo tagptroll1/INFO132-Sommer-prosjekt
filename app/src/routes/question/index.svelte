@@ -6,7 +6,7 @@
 </script>
 
 <script>
-  const type = "dropdown";
+  const type = "questions";
   export let slug;
 
   import Question from "./_Question.svelte";
