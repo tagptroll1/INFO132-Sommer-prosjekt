@@ -2,18 +2,18 @@
   import question from "../../../stores/question";
   import questions from "../../../stores/questions";
   import index from "../../../stores/index";
-  import { afterUpdate } from "svelte";
+  import { afterUpdate, onMount } from "svelte";
 
   let myBar;
   let myBarWidth = 0;
 
   afterUpdate(() => {
-    $question;
-    myBarWidth += 100 / ($questions.length - 1);
-    if (myBarWidth > 100) {
-      myBarWidth = 100;
+    let hop = 100 / ($questions.length - 1);
+    let width = $index * hop;
+    if (width > 100) {
+      width = 100;
     }
-    myBar.style.width = myBarWidth + "%";
+    myBar.style.width = width + "%";
   });
 </script>
 
@@ -37,7 +37,7 @@
   span {
     position: absolute;
     top: 10%;
-    left: 45%;
+    left: 48.5%;
   }
 </style>
 
