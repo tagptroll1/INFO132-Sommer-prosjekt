@@ -11,8 +11,6 @@ export async function post(req, res) {
                 body[i] = answer;
             }
         });
-        console.log(body);
-
         await fetch(`${process.env.API_URL}/api/v1/dataset`, {
             method: "POST",
             headers: {

@@ -15,7 +15,7 @@
   // Components
   import ProgressBar from "./_components/_ProgressBar.svelte";
 
-  let areYouSure = false;
+  let areYouSure;
 
   function pushAnswer() {
     const answer = {
@@ -37,15 +37,18 @@
 
   function next() {
     pushAnswer();
-    if ($index < $questions.length) $index++;
 
-    console.log($answers);
-    console.log($unanswered);
+    if ($index < $questions.length) $index++;
   }
 
   function submit(e, force = false) {
-    pushAnswer();
-    goto("/results");
+    if (!force) pushAnswer();
+
+    if ($unanswered.length > 0 && !force) {
+      areYouSure = true;
+    } else {
+      goto("/results");
+    }
   }
 </script>
 
@@ -72,17 +75,23 @@
   }
 
   div {
+    display: none;
+    width: 50%;
+    height: 30%;
     position: fixed;
     top: 45%;
     left: 0;
     right: 0;
     margin: 0 auto;
+    z-index: 5;
 
     background-color: lightgrey;
   }
-</style>
 
-<svelte:window on:click={() => (areYouSure = false)} />
+  .show {
+    display: block;
+  }
+</style>
 
 <header>
   <ProgressBar len={$questions.length} />
@@ -94,16 +103,12 @@
   {/if}
 </header>
 <article>
-  {#if areYouSure}
-    <div on:click|stopPropagation>
-      <p>Are you sure you wish to submit you answers and view the results?</p>
-      <p>You haven't answered question {$unanswered.join(', ')}</p>
-      <button on:click|stopPropagation={() => (areYouSure = false)}>
-        Go back
-      </button>
-      <button on:click|stopPropagation={e => submit(e, true)}>Submit!</button>
-    </div>
-  {/if}
+  <div class:show={areYouSure}>
+    <p>Are you sure you wish to submit you answers and view the results?</p>
+    <p>You have answered questions</p>
+    <button on:click={() => (areYouSure = false)}>Go back</button>
+    <button on:click={e => submit(e, true)}>Submit!</button>
+  </div>
   <section>
     <slot />
   </section>

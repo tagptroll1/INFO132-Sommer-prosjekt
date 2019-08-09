@@ -1,6 +1,24 @@
 <script>
   import Logo from "../components/LogoUIB.svelte";
   import NameField from "../components/NameField.svelte";
+
+  // store resets
+  import index from "../stores/index";
+  import answers from "../stores/answers";
+  import question from "../stores/question";
+  import questions from "../stores/questions";
+  import unanswered from "../stores/unanswered";
+  import selectedAnswer from "../stores/selectedAnswer";
+
+  import { onMount } from "svelte";
+
+  onMount(() => {
+    $index = 0;
+    $answers = [];
+    $questions = [];
+    $unanswered = [];
+    $selectedAnswer = { selected: null };
+  });
 </script>
 
 <style>
@@ -65,7 +83,7 @@
 <article>
   <h1>UiB Python</h1>
   <NameField />
-  <p></p>
+  <p />
   <nav>
     <a href="/question">Start</a>
   </nav>
