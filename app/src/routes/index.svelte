@@ -65,7 +65,7 @@
 <article>
   <h1>UiB Python</h1>
   <NameField />
-  <p</p>
+  <p></p>
   <nav>
     <a href="/question">Start</a>
   </nav>
