@@ -1,5 +1,6 @@
 <script>
   import Logo from "../components/LogoUIB.svelte";
+  import NameField from "../components/NameField.svelte";
 </script>
 
 <style>
@@ -63,6 +64,8 @@
 
 <article>
   <h1>UiB Python</h1>
+  <NameField />
+  <p</p>
   <nav>
     <a href="/question">Start</a>
   </nav>
