@@ -2,17 +2,34 @@
   import question from "../../../stores/question";
   import hljs from "highlight.js/lib/highlight";
   import python from "highlight.js/lib/languages/python";
-  import { beforeUpdate } from "svelte";
+  import { beforeUpdate, createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
+
   hljs.registerLanguage("python", python);
 
   let selected;
+
+  let prev_id;
   let piece1 = "";
   let piece2 = "";
   $: pieces = $question.question_code.split("@@");
 
+  function disp() {
+    dispatch("selectQuestion", {
+      selected,
+      correct: selected == $question.question_answer
+    });
+  }
+
   beforeUpdate(() => {
+    if (prev_id !== $question._id) {
+      selected = "";
+    }
+
     piece1 = hljs.highlight("python", pieces[0]);
     piece2 = hljs.highlight("python", pieces[1]);
+    prev_id = $question._id;
   });
 </script>
 
@@ -27,9 +44,7 @@
 
 <pre>
   <code>
-    {@html piece1.value} <select
-      bind:value={selected}
-      on:change={() => console.log(selected == $question.question_answer)}>
+    {@html piece1.value} <select bind:value={selected} on:change={disp}>
       <option value="" />
       {#each $question.alternatives as item}
         <option value={item}>{item}</option>
