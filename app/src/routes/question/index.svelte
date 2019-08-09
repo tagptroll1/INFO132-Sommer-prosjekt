@@ -5,7 +5,6 @@
   import questions from "../../stores/questions";
   import question from "../../stores/question";
 
-  console.log("HELHELHEL");
   if ($questions.length <= 0 && process.browser) {
     fetch(`api/${type}`) // Change this to get different questions
       .then(resp => resp.json())

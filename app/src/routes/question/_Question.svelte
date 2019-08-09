@@ -1,4 +1,6 @@
 <script>
+  import { onMount } from "svelte";
+
   import question from "../../stores/question";
   import selectedAnswer from "../../stores/selectedAnswer";
 
@@ -7,9 +9,11 @@
   import FillIn from "./_FillIn.svelte";
   import ProgressBar from "./_components/_ProgressBar.svelte";
 
-  function handleEvent(event) {
-    console.log("Gotevent", event.detail);
+  onMount(() => {
+    $question;
+  });
 
+  function handleEvent(event) {
     $selectedAnswer = event.detail;
   }
 </script>
