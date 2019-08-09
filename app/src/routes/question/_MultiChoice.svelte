@@ -16,4 +16,4 @@
 
 <QuestionText />
 <Codeblock />
-<MultipleChoiceAlternatives />
+<MultipleChoiceAlternatives on:selectQuestion />

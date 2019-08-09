@@ -2,8 +2,11 @@
   import question from "../../../stores/question";
   import hljs from "highlight.js/lib/highlight";
   import python from "highlight.js/lib/languages/python";
-  import { beforeUpdate } from "svelte";
-  hljs.registerLanguage("python", python);
+  import { beforeUpdate, createEventDispatcher } from "svelte";
+
+	const dispatch = createEventDispatcher();
+
+hljs.registerLanguage("python", python);
 
   let selected;
   let piece1 = "";
@@ -29,7 +32,7 @@
   <code>
     {@html piece1.value} <select
       bind:value={selected}
-      on:change={() => console.log(selected == $question.question_answer)}>
+      on:change="{() => dispatch("selectQuestion", {selected, correct:selected==$question.question_answer})}">
       <option value="" />
       {#each $question.alternatives as item}
         <option value={item}>{item}</option>

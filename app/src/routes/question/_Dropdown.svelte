@@ -6,4 +6,4 @@
 </script>
 
 <QuestionText />
-<Dropdown />
+<Dropdown on:selectQuestion />

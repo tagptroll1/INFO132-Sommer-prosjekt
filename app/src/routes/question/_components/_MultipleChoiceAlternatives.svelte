@@ -1,5 +1,24 @@
 <script>
   import question from "../../../stores/question";
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
+  let selected;
+
+  function handleClick(option) {
+    if (selected === option) {
+      selected = undefined;
+      return dispatch("selectQuestion", { selected: null });
+    }
+    selected = option;
+
+    const dispatch_obj = {
+      selected: option,
+      correct: selected === $question.question_answer
+    };
+
+    dispatch("selectQuestion", dispatch_obj);
+  }
 </script>
 
 <style>
@@ -30,13 +49,21 @@
   li {
     list-style: none;
   }
+
+  .selected {
+    background-color: greenyellow;
+  }
 </style>
 
 <div id="choices">
   <ul>
     {#each $question.alternatives as alternative}
       <li>
-        <button>{alternative}</button>
+        <button
+          class:selected={alternative === selected}
+          on:click={() => handleClick(alternative)}>
+          {alternative}
+        </button>
       </li>
     {/each}
   </ul>
