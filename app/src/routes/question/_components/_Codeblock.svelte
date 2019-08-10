@@ -5,7 +5,8 @@
   import { afterUpdate } from "svelte";
   hljs.registerLanguage("python", python);
 
-  $: highlighted = hljs.highlight("python", $question.question_code);
+  export let code = undefined;
+  $: highlighted = hljs.highlight("python", code);
 </script>
 
 <style>

@@ -14,7 +14,7 @@
 
   onMount(() => {
     $index = 0;
-    $answers = [];
+    $answers = {};
     $questions = [];
     $unanswered = [];
     $selectedAnswer = { selected: null };
