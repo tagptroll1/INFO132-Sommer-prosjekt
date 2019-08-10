@@ -15,6 +15,7 @@ export async function post(req, res) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                Authorization: process.env.API_KEY,
             },
             body: JSON.stringify(body),
         });
