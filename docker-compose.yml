@@ -1,0 +1,12 @@
+version: "3"
+services:
+    svelte:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        environment:
+            - API_URL=http://172.105.89.232:5555
+        command: node /app/__sapper__/build
+        restart: unless-stopped
+        ports:
+            - 80:3000
