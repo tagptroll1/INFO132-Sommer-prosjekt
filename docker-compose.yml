@@ -6,6 +6,7 @@ services:
             dockerfile: Dockerfile
         environment:
             - API_URL=http://172.105.89.232:5555
+            - API_KEY=${API_KEY}
         command: node /app/__sapper__/build
         restart: unless-stopped
         ports:
