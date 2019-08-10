@@ -1,5 +1,6 @@
 <script>
   import Logo from "../components/LogoUIB.svelte";
+  import NameField from "../components/NameField.svelte";
 
   // store resets
   import index from "../stores/index";
@@ -81,6 +82,8 @@
 
 <article>
   <h1>UiB Python</h1>
+  <NameField />
+  <p />
   <nav>
     <a href="/question">Start</a>
   </nav>
