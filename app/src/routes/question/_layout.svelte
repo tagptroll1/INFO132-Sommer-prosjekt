@@ -30,7 +30,7 @@
       $unanswered.push($index);
     }
 
-    $answers.push(answer);
+    $answers[$question._id] = answer;
 
     $selectedAnswer = { selected: null };
   }
@@ -39,6 +39,12 @@
     pushAnswer();
 
     if ($index < $questions.length) $index++;
+  }
+
+  function prev() {
+    pushAnswer();
+
+    if ($index > 0) $index--;
   }
 
   function submit(e, force = false) {
