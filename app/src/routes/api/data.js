@@ -11,11 +11,16 @@ export async function post(req, res) {
                 body[i] = answer;
             }
         });
-        await fetch(`${process.env.API_URL}/api/v1/dataset`, {
+        const dev = process.env.NODE_ENV === "development";
+        const url = dev ? process.env.API_URL_DEV : process.env.API_URL;
+
+        if (body.length <= 0) res.end("No body provided");
+
+        await fetch(`${url}/api/v1/dataset`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: process.env.API_KEY,
+                Authorization: `token ${process.env.API_KEY}`,
             },
             body: JSON.stringify(body),
         });

@@ -4,7 +4,6 @@
 
   // store resets
   import index from "../stores/index";
-  import answers from "../stores/answers";
   import question from "../stores/question";
   import questions from "../stores/questions";
   import unanswered from "../stores/unanswered";
@@ -14,7 +13,6 @@
 
   onMount(() => {
     $index = 0;
-    $answers = {};
     $questions = [];
     $unanswered = [];
     $selectedAnswer = { selected: null };

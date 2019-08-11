@@ -5,10 +5,9 @@
   import { beforeUpdate, createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
+  $: selected = $question.answer && $question.answer.selected_answer;
 
   hljs.registerLanguage("python", python);
-
-  let selected;
 
   let prev_id;
   let piece1 = "";
@@ -23,7 +22,7 @@
   }
 
   beforeUpdate(() => {
-    if (prev_id !== $question._id) {
+    if (prev_id !== $question._id && !$question.answer) {
       selected = "";
     }
 
