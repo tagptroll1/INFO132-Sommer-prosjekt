@@ -1,6 +1,6 @@
 <script>
   import unanswered from "../stores/unanswered";
-  import { beforeUpdate } from "svelte";
+  import { onMount } from "svelte";
   import { fly } from "svelte/transition";
   import { goto } from "@sapper/app";
 
@@ -15,7 +15,7 @@
   let datapack = [];
   $questions.forEach(q => datapack.push({ ...q, show: false }));
 
-  beforeUpdate(async () => {
+  onMount(async () => {
     $selectedAnswer = { selected: null };
     $index = 0;
 
