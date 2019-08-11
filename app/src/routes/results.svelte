@@ -21,7 +21,7 @@
 
     let any_answers = $questions.some(q => !!q.answer);
 
-    if (any_answers > 0 && process.browser) {
+    if (any_answers && process.browser) {
       const answers = [];
       $questions.forEach(q => answers.push(q.answer));
       await fetch("/api/data", {
