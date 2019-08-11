@@ -3,23 +3,28 @@
 
   import Question from "./_Question.svelte";
   import questions from "../../stores/questions";
-  import question from "../../stores/question";
-  import unanswered from "../../stores/unanswered";
 
-  if ($questions.length <= 0 && process.browser) {
-    fetch(`api/${type}`) // Change this to get different questions
-      .then(resp => resp.json())
-      .then(json => {
-        $questions = json;
-        $unanswered = [];
-        $questions.forEach(() => $unanswered.push(undefined));
-      })
-      .catch(err => console.error(err));
-  } else {
-    $question;
+  let promise = getQuestions();
+
+  async function getQuestions() {
+    if ($questions.length <= 0 && process.browser) {
+      const resp = await fetch(`api/${type}`); // Change this to get different questions
+      const json = await resp.json();
+      $questions = json;
+    }
   }
 </script>
 
-{#if $question}
-  <Question question={$question} />
-{/if}
+<style>
+  p {
+    color: tomato;
+  }
+</style>
+
+{#await promise}
+  Loading.
+{:then result}
+  <Question />
+{:catch err}
+  <p>Something went wrong :(</p>
+{/await}

@@ -1,10 +1,12 @@
 <script>
+  import questions from "../../../stores/questions";
   import question from "../../../stores/question";
+  import index from "../../../stores/index";
+  import user from "../../../stores/user";
   import hljs from "highlight.js/lib/highlight";
   import python from "highlight.js/lib/languages/python";
-  import { beforeUpdate, createEventDispatcher } from "svelte";
+  import { beforeUpdate } from "svelte";
 
-  const dispatch = createEventDispatcher();
   $: selected = $question.answer && $question.answer.selected_answer;
 
   hljs.registerLanguage("python", python);
@@ -15,20 +17,25 @@
   $: pieces = $question.question_code.split("@@");
 
   function disp() {
-    dispatch("selectQuestion", {
-      selected,
-      correct: selected == $question.question_answer
-    });
+    const correct = selected == $question.question_answer
+    $questions[$index].answer = {
+      user: $user,
+      question_id: $question._id,
+      selected_answer: selected,
+      correct: correct,
+      ended_question: new Date(Date.now()).toString()
+    };
   }
 
   beforeUpdate(() => {
     if (prev_id !== $question._id && !$question.answer) {
-      selected = "";
+      selected = null;
     }
 
     piece1 = hljs.highlight("python", pieces[0]);
     piece2 = hljs.highlight("python", pieces[1]);
     prev_id = $question._id;
+
   });
 </script>
 

@@ -1,64 +1,53 @@
 <script>
   export let segment;
   import { goto } from "@sapper/app";
-  import { afterUpdate, beforeUpdate } from "svelte";
 
   // Stores
   import user from "../../stores/user";
   import index from "../../stores/index";
   import question from "../../stores/question";
   import questions from "../../stores/questions";
-  import unanswered from "../../stores/unanswered";
-  import selectedAnswer from "../../stores/selectedAnswer";
 
   // Components
   import ProgressBar from "./_components/_ProgressBar.svelte";
 
   let areYouSure;
+  let unanswered_index;
 
-  beforeUpdate(() => {
-    if ($question && $question.answer)
-      $selectedAnswer = {
-        selected: $question.answer.selected_answer,
-        correct: $question.answer.correct
+  function ensureAnswer() {
+    if (!$question.answer) {
+      $questions[$index].answer = {
+        user: $user,
+        question_id: $question._id,
+        selected_answer: "No answer",
+        correct: false,
+        ended_question: new Date(Date.now()).toString()
       };
-  });
-
-  function pushAnswer() {
-    const answer = {
-      user: $user,
-      question_id: $question._id,
-      selected_answer: $selectedAnswer.selected,
-      correct: $selectedAnswer.correct || false,
-      ended_question: new Date(Date.now()).toString()
-    };
-
-    if ($selectedAnswer.selected === null) {
-      $unanswered[$index] = $index;
     }
-
-    const quest = $question;
-    quest.answer = answer;
-
-    $selectedAnswer = { selected: null };
   }
 
   function next() {
-    pushAnswer();
-
+    ensureAnswer();
     if ($index < $questions.length) $index++;
   }
 
   function prev() {
-    pushAnswer();
-
+    ensureAnswer();
     if ($index > 0) $index--;
   }
 
   function submit(e, force = false) {
-    if (!force) pushAnswer();
+    ensureAnswer();
+    const unanswered = $questions.some(
+      q => q.answer == undefined || q.answer.selected_answer === "No answer"
+    );
+    if (unanswered && !force) {
+      unanswered_index = [];
 
-    if ($unanswered.length > 0 && !force) {
+      $questions.forEach((q, i) => {
+        if (q.answer.selected_answer === "No answer")
+          unanswered_index.push(i + 1);
+      });
       areYouSure = true;
     } else {
       goto("/results");
@@ -122,7 +111,9 @@
 <article>
   <div class:show={areYouSure}>
     <p>Are you sure you wish to submit you answers and view the results?</p>
-    <p>You have answered questions</p>
+    <p>
+      You have unanswered questions. Index: {unanswered_index && unanswered_index.toString()}
+    </p>
     <button on:click={() => (areYouSure = false)}>Go back</button>
     <button on:click={e => submit(e, true)}>Submit!</button>
   </div>
