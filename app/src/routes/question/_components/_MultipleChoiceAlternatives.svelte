@@ -1,9 +1,17 @@
 <script>
   import question from "../../../stores/question";
-  import { createEventDispatcher } from "svelte";
+  import index from "../../../stores/index";
+  import { createEventDispatcher, onMount, beforeUpdate } from "svelte";
 
   const dispatch = createEventDispatcher();
-  let selected;
+  $: selected = $question.answer && $question.answer.selected_answer;
+
+  onMount(() => {
+    dispatch("selectQuestion", {
+      selected,
+      correct: selected === $question.question_answer
+    });
+  });
 
   function handleClick(option) {
     if (selected === option) {

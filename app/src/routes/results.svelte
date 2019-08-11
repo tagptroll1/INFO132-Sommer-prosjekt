@@ -1,7 +1,6 @@
 <script>
   import unanswered from "../stores/unanswered";
-  import answers from "../stores/answers";
-  import { beforeUpdate, onMount } from "svelte";
+  import { beforeUpdate } from "svelte";
   import { fly } from "svelte/transition";
   import { goto } from "@sapper/app";
 
@@ -16,19 +15,21 @@
   let datapack = [];
   $questions.forEach(q => datapack.push({ ...q, show: false }));
 
-  onMount(() => {});
-
   beforeUpdate(async () => {
     $selectedAnswer = { selected: null };
     $index = 0;
 
-    if (Object.keys($answers).length > 0 && process.browser) {
+    let any_answers = $questions.some(q => !!q.answer);
+
+    if (any_answers > 0 && process.browser) {
+      const answers = [];
+      $questions.forEach(q => answers.push(q.answer));
       await fetch("/api/data", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(Object.values($answers))
+        body: JSON.stringify(Object.values(answers))
       });
     } else {
       goto("/");
@@ -80,8 +81,8 @@
     {#each datapack as quest, i}
       <li on:click={() => (quest.show ^= 1)}>
         <h2>
-          <span class:correct={$answers[quest._id].correct}>
-            {$answers[quest._id].correct ? '✔' : '✖'}
+          <span class:correct={quest.answer.correct}>
+            {quest.answer.correct ? '✔' : '✖'}
           </span>
           Question {i + 1}
         </h2>
@@ -94,10 +95,10 @@
 
             <p>
               You selected:
-              <code>{$answers[quest._id].selected_answer || 'Nothing'}</code>
+              <code>{quest.answer.selected_answer || 'Nothing'}</code>
 
             </p>
-            {#if !$answers[quest._id].correct}
+            {#if !quest.answer.correct}
               <p>
                 Correct answer was
                 <code>{quest.question_answer}</code>

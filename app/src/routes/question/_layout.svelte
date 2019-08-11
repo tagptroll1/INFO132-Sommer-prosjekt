@@ -1,12 +1,11 @@
 <script>
   export let segment;
   import { goto } from "@sapper/app";
-  import { afterUpdate } from "svelte";
+  import { afterUpdate, beforeUpdate } from "svelte";
 
   // Stores
   import user from "../../stores/user";
   import index from "../../stores/index";
-  import answers from "../../stores/answers";
   import question from "../../stores/question";
   import questions from "../../stores/questions";
   import unanswered from "../../stores/unanswered";
@@ -16,6 +15,14 @@
   import ProgressBar from "./_components/_ProgressBar.svelte";
 
   let areYouSure;
+
+  beforeUpdate(() => {
+    if ($question && $question.answer)
+      $selectedAnswer = {
+        selected: $question.answer.selected_answer,
+        correct: $question.answer.correct
+      };
+  });
 
   function pushAnswer() {
     const answer = {
@@ -27,10 +34,11 @@
     };
 
     if ($selectedAnswer.selected === null) {
-      $unanswered.push($index);
+      $unanswered[$index] = $index;
     }
 
-    $answers[$question._id] = answer;
+    const quest = $question;
+    quest.answer = answer;
 
     $selectedAnswer = { selected: null };
   }
@@ -102,6 +110,9 @@
 <header>
   <ProgressBar len={$questions.length} />
   <!-- Buttons -->
+  {#if $index > 0}
+    <button id="prev" on:click={prev}>Forrige</button>
+  {/if}
   {#if $index != $questions.length - 1}
     <button id="next" on:click={next}>Neste</button>
   {:else}

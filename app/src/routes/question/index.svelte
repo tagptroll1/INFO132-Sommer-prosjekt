@@ -4,12 +4,15 @@
   import Question from "./_Question.svelte";
   import questions from "../../stores/questions";
   import question from "../../stores/question";
+  import unanswered from "../../stores/unanswered";
 
   if ($questions.length <= 0 && process.browser) {
     fetch(`api/${type}`) // Change this to get different questions
       .then(resp => resp.json())
       .then(json => {
         $questions = json;
+        $unanswered = [];
+        $questions.forEach(() => $unanswered.push(undefined));
       })
       .catch(err => console.error(err));
   } else {
