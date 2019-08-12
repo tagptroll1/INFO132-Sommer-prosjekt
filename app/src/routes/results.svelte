@@ -1,29 +1,31 @@
 <script>
-  import unanswered from "../stores/unanswered";
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
   import { goto } from "@sapper/app";
 
-  import index from "../stores/index";
-  import question from "../stores/question";
   import questions from "../stores/questions";
-  import selectedAnswer from "../stores/selectedAnswer";
 
   import Codeblock from "./question/_components/_Codeblock.svelte";
-  import DropBlock from "./question/_components/_Dropdown.svelte";
 
-  let datapack = [];
-  $questions.forEach(q => datapack.push({ ...q, show: false }));
+  let datapack;
 
   onMount(async () => {
-    $selectedAnswer = { selected: null };
-    $index = 0;
+    datapack = [];
+    $questions.forEach(q =>
+      datapack.push({
+        ...q,
+        show: false
+      })
+    );
 
-    let any_answers = $questions.some(q => !!q.answer);
+    let any_answers = $questions.some(
+      q => q.answer.selected_answer !== "No answer"
+    );
 
     if (any_answers && process.browser) {
       const answers = [];
       $questions.forEach(q => answers.push(q.answer));
+
       await fetch("/api/data", {
         method: "POST",
         headers: {
@@ -32,6 +34,7 @@
         body: JSON.stringify(Object.values(answers))
       });
     } else {
+      alert("No questions were answered, so nothing to show");
       goto("/");
     }
   });

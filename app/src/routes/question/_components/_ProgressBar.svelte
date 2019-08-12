@@ -1,8 +1,7 @@
 <script>
-  import question from "../../../stores/question";
   import questions from "../../../stores/questions";
   import index from "../../../stores/index";
-  import { afterUpdate, onMount } from "svelte";
+  import { afterUpdate } from "svelte";
 
   let myBar;
   let myBarWidth = 0;

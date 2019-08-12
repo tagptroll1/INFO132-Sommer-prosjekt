@@ -1,31 +1,28 @@
 <script>
+  import questions from "../../../stores/questions";
   import question from "../../../stores/question";
   import index from "../../../stores/index";
-  import { createEventDispatcher, onMount, beforeUpdate } from "svelte";
+  import user from "../../../stores/user";
 
-  const dispatch = createEventDispatcher();
   $: selected = $question.answer && $question.answer.selected_answer;
 
-  onMount(() => {
-    dispatch("selectQuestion", {
-      selected,
-      correct: selected === $question.question_answer
-    });
-  });
-
   function handleClick(option) {
-    if (selected === option) {
-      selected = undefined;
-      return dispatch("selectQuestion", { selected: null });
-    }
     selected = option;
+
+    const correct = selected === $question.question_answer;
+
+    $questions[$index].answer = {
+      user: $user,
+      question_id: $question._id,
+      selected_answer: selected,
+      correct: correct,
+      ended_question: new Date(Date.now()).toString()
+    };
 
     const dispatch_obj = {
       selected: option,
       correct: selected === $question.question_answer
     };
-
-    dispatch("selectQuestion", dispatch_obj);
   }
 </script>
 

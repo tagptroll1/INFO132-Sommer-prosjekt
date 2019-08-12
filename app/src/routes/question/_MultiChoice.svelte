@@ -18,4 +18,4 @@
 
 <QuestionText />
 <Codeblock code={$question.question_code} />
-<MultipleChoiceAlternatives on:selectQuestion />
+<MultipleChoiceAlternatives />
