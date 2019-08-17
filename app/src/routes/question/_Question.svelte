@@ -8,8 +8,8 @@
 
 {#if $question.type === 'dropdown'}
   <Dropdown />
-{:else if $question.type === 'multi_choice'}
+{:else if $question.type === 'multichoice'}
   <MultiChoice />
-{:else if $question.type === 'fill_in'}
+{:else if $question.type === 'fillin'}
   <FillIn />
 {/if}

@@ -6,7 +6,7 @@ export async function get(req, res) {
 
         const url = `${
             process.env.API_URL
-        }/api/v1/questions?dropdown=2&multi_choice=2`;
+        }/api/v1/questions?dropdown=2&multichoice=2`;
 
         const resp = await fetch(url);
         const json = await resp.json();

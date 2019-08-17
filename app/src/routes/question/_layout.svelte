@@ -84,12 +84,14 @@
     display: block;
   }
 
-  #pbar{
+  #pbar {
     position: fixed;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
   }
 </style>
+
 <section>
   <div id="pbar">
     <ProgressBar len={$questions.length} />
@@ -109,7 +111,7 @@
   </section>
 </article>
 <section>
-    <!-- Buttons -->
+  <!-- Buttons -->
   {#if $index > 0}
     <button id="prev" on:click={prev}>Forrige</button>
   {/if}
