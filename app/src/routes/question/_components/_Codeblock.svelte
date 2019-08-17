@@ -10,10 +10,9 @@
 <style>
   code {
     display: block;
-    padding: 5px;
-    border-radius: 5px;
-
-    background-color: red;
+    border-radius: 8px 4px;
+    background-color: var(--bg-aside);
+    padding: 15px 0;
   }
 </style>
 
