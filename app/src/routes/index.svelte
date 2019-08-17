@@ -1,27 +1,24 @@
 <script>
   import Logo from "../components/LogoUIB.svelte";
 
-  // store resets
+  import user from "../stores/user.js";
   import index from "../stores/index";
   import questions from "../stores/questions";
 
-  import { onMount } from "svelte";
-
-  onMount(() => {
-    $index = 0;
-    $questions = [];
-  });
-
-
-  import user from "../stores/user.js";
+  $index = 0;
+  $questions = [];
 
   const pattern = `[a-zA-ZæøåÆØÅ]{3}\\d{3}`;
-
   const placeholder = `username ex; abc123`;
-  
+
   let input;
-  
-  
+  let anon = false;
+
+  function handleStart(){
+      if((input.checkValidity() && input.value.length) || anon){
+        $user = input.value
+      }
+  }
 
 </script>
 
@@ -110,7 +107,7 @@
     visibility: hidden;
     
   }
-  div input:valid+span{
+  div input:not([value=""]):valid+span{
     visibility: visible;
   }
 </style>
@@ -125,11 +122,7 @@
   </div>
 
   <nav>
-    <a href="/question" on:click={()=>{
-      if(input.checkValidity() && input.value.length){
-        $user = input.value
-      }
-    }}>Start</a>
+    <a href="/question" on:click={handleStart}>Start</a>
   </nav>
 </article>
 
