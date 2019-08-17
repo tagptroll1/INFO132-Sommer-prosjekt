@@ -24,6 +24,8 @@
     margin-bottom: 20px;
   }
   #myBar {
+    display: flex;
+    align-items: center;
     height: 30px;
     background-color: #5cb85c;
     /* width of the bar set initially to 0% to hide it */
