@@ -12,6 +12,8 @@
     display: block;
     padding: 5px;
     border-radius: 5px;
+
+    background-color: red;
   }
 </style>
 
