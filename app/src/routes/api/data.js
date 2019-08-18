@@ -1,8 +1,7 @@
+import fetch from "node-fetch";
+
 export async function post(req, res) {
     try {
-        const fetch = process.browser
-            ? window.fetch
-            : require("node-fetch").default;
         const body = req.body;
 
         body.forEach((answer, i) => {
@@ -11,12 +10,11 @@ export async function post(req, res) {
                 body[i] = answer;
             }
         });
-        const dev = process.env.NODE_ENV === "development";
-        const url = dev ? process.env.API_URL_DEV : process.env.API_URL;
+        const url = `${process.env.API_URL}/api/v1/dataset`;
 
         if (body.length <= 0) res.end("No body provided");
 
-        await fetch(`${url}/api/v1/dataset`, {
+        await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

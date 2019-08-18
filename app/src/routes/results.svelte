@@ -2,42 +2,43 @@
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
   import { goto } from "@sapper/app";
+  import { postAndGetResponse } from "api.js";
 
   import questions from "../stores/questions";
 
   import Codeblock from "./question/_components/_Codeblock.svelte";
 
-  let datapack;
+  let any_answers = $questions.some(
+    q => q.answer.selected_answer !== "No answer"
+  );
 
-  onMount(async () => {
-    datapack = [];
-    $questions.forEach(q =>
-      datapack.push({
+  if (!any_answers && process.browser) {
+    alert("No questions were answered, so nothing to show");
+    goto("/");
+  }
+
+  let datapack = init();
+
+  async function init() {
+    const idsAnswerSets = {};
+    const return_value = [];
+
+    $questions.forEach(q => (idsAnswerSets[q._id] = q.answer));
+    let feedbacks = await postAndGetResponse(idsAnswerSets);
+
+    $questions.forEach((q, i) => {
+      const feedback_set = feedbacks.find(f => f.question_id === q._id) || {};
+      let feedback = feedback_set[q.answer.selected_answer];
+
+      return_value.push({
         ...q,
-        show: false
-      })
-    );
-
-    let any_answers = $questions.some(
-      q => q.answer.selected_answer !== "No answer"
-    );
-
-    if (any_answers && process.browser) {
-      const answers = [];
-      $questions.forEach(q => answers.push(q.answer));
-
-      await fetch("/api/data", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(Object.values(answers))
+        show: false,
+        feedback
       });
-    } else {
-      alert("No questions were answered, so nothing to show");
-      goto("/");
-    }
-  });
+    });
+
+    return return_value;
+  }
 </script>
 
 <style>
@@ -79,9 +80,11 @@
 </style>
 
 <h1>Question results</h1>
-{#if datapack}
+{#await datapack}
+  loading..
+{:then resp}
   <ol>
-    {#each datapack as quest, i}
+    {#each resp as quest, i}
       <li on:click={() => (quest.show ^= 1)}>
         <h2>
           <span class:correct={quest.answer.correct}>
@@ -107,9 +110,14 @@
                 <code>{quest.question_answer}</code>
               </p>
             {/if}
+            {#if quest.feedback}
+              <p>{quest.feedback}</p>
+            {/if}
           </section>
         {/if}
       </li>
     {/each}
   </ol>
-{/if}
+{:catch}
+  ...
+{/await}
