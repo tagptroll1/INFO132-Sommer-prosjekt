@@ -6,7 +6,7 @@ export async function get(req, res) {
 
         const url = process.env.API_URL;
 
-        const resp = await fetch(`${url}/api/v1/multi_choice/set/2`);
+        const resp = await fetch(`${url}/api/v1/multichoice/set/2`);
         const json = await resp.json();
 
         res.setHeader("Content-Type", "application/json");
