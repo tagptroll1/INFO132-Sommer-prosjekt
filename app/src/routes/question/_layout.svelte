@@ -56,28 +56,17 @@
 </script>
 
 <style>
-  header {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-  }
-
   article {
     position: relative;
     display: flex;
     flex-direction: column;
   }
-
-  section {
-    margin: 50px;
-  }
-
   button {
+    margin: 20px;
     width: 8rem;
   }
 
-  div {
+  article div {
     display: none;
     width: 50%;
     height: 30%;
@@ -94,20 +83,20 @@
   .show {
     display: block;
   }
+
+  #pbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
 </style>
 
-<header>
-  <ProgressBar len={$questions.length} />
-  <!-- Buttons -->
-  {#if $index > 0}
-    <button id="prev" on:click={prev}>Forrige</button>
-  {/if}
-  {#if $index != $questions.length - 1}
-    <button id="next" on:click={next}>Neste</button>
-  {:else}
-    <button id="end" on:click={submit}>Fullfør quiz</button>
-  {/if}
-</header>
+<section>
+  <div id="pbar">
+    <ProgressBar len={$questions.length} />
+  </div>
+</section>
 <article>
   <div class:show={areYouSure}>
     <p>Are you sure you wish to submit you answers and view the results?</p>
@@ -121,3 +110,14 @@
     <slot />
   </section>
 </article>
+<section>
+  <!-- Buttons -->
+  {#if $index > 0}
+    <button id="prev" on:click={prev}>Forrige</button>
+  {/if}
+  {#if $index != $questions.length - 1}
+    <button id="next" on:click={next}>Neste</button>
+  {:else}
+    <button id="end" on:click={submit}>Fullfør quiz</button>
+  {/if}
+</section>

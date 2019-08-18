@@ -1,24 +1,36 @@
 <script>
   import Logo from "../components/LogoUIB.svelte";
-  import NameField from "../components/NameField.svelte";
 
-  // store resets
+  import user from "../stores/user.js";
   import index from "../stores/index";
-  import question from "../stores/question";
   import questions from "../stores/questions";
 
-  import { onMount } from "svelte";
+  $index = 0;
+  $questions = [];
 
-  onMount(() => {
-    $index = 0;
-    $questions = [];
-  });
+  const pattern = `[a-zA-ZæøåÆØÅ]{3}\\d{3}`;
+  const placeholder = `username ex; abc123`;
+
+  let input;
+  let anon = false;
+
+  function handleStart(){
+      if((input.checkValidity() && input.value.length) || anon){
+        $user = input.value
+      }
+  }
+
 </script>
 
 <style>
   nav {
     display: flex;
     justify-content: space-evenly;
+  }
+  article{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   a,
@@ -52,11 +64,11 @@
     border-radius: 1000px;
     background-color: var(--bg-main);
 
-    transition: width 0.3s ease;
+    transition: width 0.1s ease;
   }
   a:focus::after,
   a:hover::after {
-    width: 25%;
+    width: calc(100% - 50px);
   }
 
   figure {
@@ -69,19 +81,49 @@
     width: 100vw;
   }
 
-  :global(main) {
-    justify-content: center;
+  div{
+    display: flex;
+  }
+  div input{
+    border: none;
+    background-color: inherit;
+    border-bottom: 2px solid;
+    box-shadow: none;
+
+    margin-bottom: 20px;
+
+    font-family: var(--font-main);
+    font-size: 1em;
+    text-align: center;
+  }
+
+  div input:valid{
+    border-color: rgb(58, 141, 58);
+  }
+  div input:invalid{
+    border-color: rgb(231, 45, 45);
+  }
+  div span{
+    visibility: hidden;
+    
+  }
+  div input:not([value=""]):valid+span{
+    visibility: visible;
   }
 </style>
 
 <article>
   <h1>UiB Python</h1>
-  <NameField />
-  <p />
-  <nav>
-    <a href="/question">Start</a>
-  </nav>
 
+  <span></span>
+  <div>
+    <input {pattern} {placeholder} bind:this={input}/>
+    <span>👌</span>
+  </div>
+
+  <nav>
+    <a href="/question" on:click={handleStart}>Start</a>
+  </nav>
 </article>
 
 <figure>
