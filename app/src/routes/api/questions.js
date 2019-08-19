@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 
 export async function get(req, res) {
     try {
-        const url = `${process.env.API_URL}/api/v1/questions?multichoice=2`;
+        const url = `${process.env.API_URL}/api/v1/questions?multichoice=2&dropdown=2`;
 
         const resp = await fetch(url);
         const json = await resp.json();
