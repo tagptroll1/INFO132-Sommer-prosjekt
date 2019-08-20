@@ -1,5 +1,6 @@
 # INFO132-sommer-prosjekt
 
+> **Appreciations to [decorator-factory](https://github.com/decorator-factory/) for writing most of the questions for the app! <3**
 ## How to git
 
 ## 3 Steps to pushing your changes
