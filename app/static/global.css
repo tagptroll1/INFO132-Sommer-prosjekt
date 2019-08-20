@@ -22,7 +22,7 @@
     --color-main: #2c2c2c;
 
     --bg-main: #ffffff;
-    --bg-aside: #f5f5f5;
+    --bg-aside: #dadada;
     --bg-focus: #cf3c3a;
 }
 
@@ -38,4 +38,5 @@ code {
     font-size: calc(1em - 2px);
     padding: 0.2em 0.4em;
     border-radius: 2px;
+    line-height: 1.5rem;
 }

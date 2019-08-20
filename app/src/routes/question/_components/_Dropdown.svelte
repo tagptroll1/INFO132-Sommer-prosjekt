@@ -40,11 +40,10 @@
 </script>
 
 <style>
-  pre,
   code {
-    background-color: var(--bg-main);
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    display: block;
+    border-radius: 8px 4px;
+    background-color: var(--bg-aside);
   }
 </style>
 
