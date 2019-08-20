@@ -12,12 +12,13 @@
     display: block;
     border-radius: 8px 4px;
     background-color: var(--bg-aside);
-    padding: 15px 0;
   }
 </style>
 
-<pre>
-  <code>
-    {@html highlighted.value}
-  </code>
-</pre>
+{#if highlighted.value}
+  <pre>
+    <code>
+      {@html highlighted.value}
+    </code>
+  </pre>
+{/if}
