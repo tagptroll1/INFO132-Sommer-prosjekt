@@ -1,18 +1,15 @@
 import fetch from "node-fetch";
 
 export async function post(req, res) {
+    const body = req.body;
     try {
-        const body = req.body;
-
-        body.forEach((answer, i) => {
+        body.questions.forEach((answer, i) => {
             if (answer.selected_answer === null) {
                 answer.selected_answer = "No answer";
-                body[i] = answer;
+                body.questions[i] = answer;
             }
         });
         const url = `${process.env.API_URL}/api/v1/dataset`;
-
-        if (body.length <= 0) res.end("No body provided");
 
         await fetch(url, {
             method: "POST",

@@ -2,9 +2,11 @@
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
   import { goto } from "@sapper/app";
-  import { postAndGetResponse } from "api.js";
+  import { postData, getResponses } from "api.js";
 
   import questions from "../stores/questions";
+  import { startDate } from "../stores/dates";
+  import user from "../stores/user";
 
   import Codeblock from "./question/_components/_Codeblock.svelte";
 
@@ -20,11 +22,27 @@
   let datapack = init();
 
   async function init() {
-    const idsAnswerSets = {};
+    const dataset = {
+      start_time: $startDate,
+      end_time: new Date(Date.now()),
+      user: $user,
+      questions: []
+    };
+    const ids = [];
     const return_value = [];
 
-    $questions.forEach(q => (idsAnswerSets[q._id] = q.answer));
-    let feedbacks = await postAndGetResponse(idsAnswerSets);
+    $questions.forEach(q => {
+      ids.push(q._id);
+      dataset.questions.push({
+        question_id: q._id,
+        selected_answer: q.answer.selected_answer,
+        correct: q.answer.correct,
+        time_spent: 0
+      });
+    });
+
+    await postData(dataset);
+    let feedbacks = await getResponses(ids);
 
     $questions.forEach((q, i) => {
       const feedback_set = feedbacks.find(f => f.question_id === q._id) || {};

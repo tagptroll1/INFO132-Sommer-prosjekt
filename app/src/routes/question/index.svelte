@@ -3,6 +3,7 @@
 
   import Question from "./_Question.svelte";
   import questions from "../../stores/questions";
+  import {startDate} from "../../stores/dates";
 
   let promise = getQuestions();
 
@@ -13,6 +14,7 @@
       $questions = json;
     }
   }
+  $startDate = new Date(Date.now());
 </script>
 
 <style>
