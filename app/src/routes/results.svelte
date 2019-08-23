@@ -32,7 +32,7 @@
 
       return_value.push({
         ...q,
-        show: false,
+        show: true,
         feedback
       });
     });
@@ -77,9 +77,17 @@
   code {
     background-color: burlywood;
   }
+
+  #carrot {
+    position: absolute;
+    right: 10px;
+    color: black;
+    font-size: 2em;
+  }
 </style>
 
 <h1>Question results</h1>
+<button on:click={() => goto('/')}>Try again</button>
 {#await datapack}
   loading..
 {:then resp}
@@ -91,6 +99,7 @@
             {quest.answer.correct ? '✔' : '✖'}
           </span>
           Question {i + 1}
+          <span id="carrot">^</span>
         </h2>
         {#if quest.show}
           <section
