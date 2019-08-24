@@ -1,6 +1,5 @@
 # INFO132-sommer-prosjekt
 
-> **Appreciations to [decorator-factory](https://github.com/decorator-factory/) for writing most of the questions for the app! <3**
 ## How to git
 
 ## 3 Steps to pushing your changes
@@ -88,28 +87,4 @@ Vær på branchen du vil oppdatere fra github
 
 
 
-
-
-## RethinkDB
-
-### Install
-
-Mac OS - `brew update && brew install rethinkdb`
-
-Windows - [Download](https://download.rethinkdb.com/windows/rethinkdb-2.3.6.zip) the ZIP archive and unpack it in a directory of your choice.
-
-Arch - `sudo pacman -S rethinkdb` eller gjennom package manageren til Manjaro.
-
-
-
-
-
-## Yoink-able code
-
-```python
-lines = '''"AAA", "BBB", "Test, Test", "CCC"
-           "111", "222, 333", "XXX", "YYY, ZZZ"'''.splitlines()
-for l in  csv.reader(lines, quotechar='"', delimiter=',',
-                     quoting=csv.QUOTE_ALL, skipinitialspace=True):
-```
-
+> **Appreciations to [decorator-factory](https://github.com/decorator-factory/) for writing most of the questions for the app! <3**
