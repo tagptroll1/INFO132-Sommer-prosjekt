@@ -1,4 +1,5 @@
 <script>
+  import { goto } from "@sapper/app"
   import Logo from "../components/LogoUIB.svelte";
 
   import user from "../stores/user.js";
@@ -9,7 +10,6 @@
   $questions = [];
 
   const pattern = `[a-zA-ZæøåÆØÅ]{3}\\d{3}`;
-  const placeholder = `username ex; abc123`;
 
   let input;
   let anon = false;
@@ -19,21 +19,48 @@
         $user = input.value
       }
   }
+  function handleEnter(event){
+    let key = event.key || event.keyCode;
+    if(key === 13 || key === "Enter"){
+      event.preventDefault();
+      handleStart();
+      goto("/question");
+    }
+  }
 
 </script>
 
+<article>
+  <h1>UiB Python</h1>
+
+    <label for="inp" style="text-align: center;">Please enter your UIB Username:</label>
+  <div>
+    <input 
+      {pattern} 
+      placeholder="here" 
+      bind:this={input} 
+      on:keydown={handleEnter}
+      autofocus
+
+      />
+  </div>
+
+  <a class="start" href="/question" on:click={handleStart}>Start</a>
+</article>
+
+<figure>
+  <Logo />
+</figure>
+
 <style>
-  nav {
-    display: flex;
-    justify-content: space-evenly;
-  }
   article{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
   }
 
-  a,
+  .start,
   h1 {
     color: var(--color-main);
   }
@@ -42,7 +69,8 @@
     font-weight: 300;
     font-size: 3.2em;
   }
-  a {
+
+  .start {
     text-decoration: none;
     padding: 10px 25px;
     margin: 0 5px;
@@ -52,7 +80,7 @@
 
     position: relative;
   }
-  a::after {
+  .start::after {
     content: "";
     display: block;
     position: absolute;
@@ -66,8 +94,8 @@
 
     transition: width 0.1s ease;
   }
-  a:focus::after,
-  a:hover::after {
+  .start:focus::after,
+  .start:hover::after {
     width: calc(100% - 50px);
   }
 
@@ -79,6 +107,10 @@
     align-items: center;
     overflow: hidden;
     width: 100vw;
+  }
+
+  label{
+    margin-bottom: 10px;
   }
 
   div{
@@ -95,6 +127,7 @@
     font-family: var(--font-main);
     font-size: 1em;
     text-align: center;
+    width: 55px;
   }
 
   div input:valid{
@@ -103,29 +136,5 @@
   div input:invalid{
     border-color: rgb(231, 45, 45);
   }
-  div span{
-    visibility: hidden;
-    
-  }
-  div input:not([value=""]):valid+span{
-    visibility: visible;
-  }
+
 </style>
-
-<article>
-  <h1>UiB Python</h1>
-
-  <span></span>
-  <div>
-    <input {pattern} {placeholder} bind:this={input}/>
-    <span>👌</span>
-  </div>
-
-  <nav>
-    <a href="/question" on:click={handleStart}>Start</a>
-  </nav>
-</article>
-
-<figure>
-  <Logo />
-</figure>
