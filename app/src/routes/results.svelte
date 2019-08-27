@@ -99,8 +99,7 @@
   #carrot {
     position: absolute;
     right: 10px;
-    color: black;
-    font-size: 2em;
+    font-size: 0.8em;
   }
 </style>
 
@@ -117,7 +116,7 @@
             {quest.answer.correct ? '✔' : '✖'}
           </span>
           Question {i + 1}
-          <span id="carrot">^</span>
+          <span id="carrot">{quest.show ? '⏫' : '⏬'}</span>
         </h2>
         {#if quest.show}
           <section
