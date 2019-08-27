@@ -13,7 +13,16 @@
 
   let input;
   let value = '';
+  let placeholder = "ex; rob404";
 
+  let numberOfAttempts = 0;
+
+  const alternatives = [
+    'joe432',
+    'tom233',
+    'aar444',
+    'jef007'
+  ]
 
   function handleEnter(event){
     let key = event.key || event.keyCode;
@@ -25,17 +34,41 @@
   }
 
   function start(){
+
     if(input.checkValidity()){
       $user = input.value;
-      
       goto("/question");
-
     } else {
-      value = '';
+      if(numberOfAttempts >= 2){
+        goto("/question");
+      } else {
+        input.classList.add('err');
+      }
     }
   }
+
+  function feedbackCleanup(){
+    input.classList.remove('err');
+    value = '';
+    const select = Math.floor(alternatives.length * Math.random())
+    placeholder = `ex; ${alternatives[select]}`;
+    numberOfAttempts++;
+  }
+
 </script>
 <style>
+  :global(.err){
+    animation: shake 0.4s ease;
+  }
+  @keyframes shake{
+			0% { transform: translate(10px); }
+			20% { transform: translate(-10px); }
+			40% { transform: translate(5px); }
+			60% { transform: translate(-5px); }
+			80% { transform: translate(3px); }
+			100% { transform: translate(0px); }
+  }
+
   .outer{
     color: var(--color-main);
     display: flex;
@@ -139,17 +172,18 @@
     <span>Please enter your UIB Username <br>(or leave blank to stay anonymous):</span>
     <input 
       {pattern} 
-      placeholder="ex; pat123" 
+      {placeholder}
       bind:this={input} 
       bind:value
       on:keydown={handleEnter}
+      on:animationend={feedbackCleanup}
     >
   </div>
 
   <button
     class="start" 
     on:click={start}
-  >Start as {value ? value : 'anonymous'}</button>
+  >Start as <b>{value ? value : 'anonymous'}</b></button>
 
 </div>
 
