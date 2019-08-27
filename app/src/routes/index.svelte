@@ -13,41 +13,58 @@
 
   let input;
   let anon = false;
+  let value = '';
 
-  function handleStart(){
-      if((input.checkValidity() && input.value.length) || anon){
-        $user = input.value
-      }
-  }
+
   function handleEnter(event){
     let key = event.key || event.keyCode;
-    if(key === 13 || key === "Enter"){
+    if((key === 13 || key === "Enter") && input.checkValidity()){
       event.preventDefault();
-      handleStart();
-      goto("/question");
+
+      start();
     }
   }
 
+  function start(){
+    if(input.checkValidity()){
+      $user = input.value;
+      goto("/question");
+    } else {
+      value = '';
+    }
+  }
 </script>
 <style>
-  *{
+  .outer{
     color: var(--color-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: hsla(0, 0%, 77%, 0.6);
+    padding: 20px 30px;
   }
+
   h1 {
     text-align: center;
     font-weight: 300;
     font-size: 3.2em;
   }
+
   .start {
+    border: none;
+    cursor: pointer;
+
     text-decoration: none;
     padding: 10px 25px;
-    margin: 0 5px;
+    margin: 30px;
     color: var(--bg-main);
     background-color: var(--bg-focus);
     border-radius: 8px 4px;
 
     position: relative;
   }
+
   .start::after {
     content: "";
     display: block;
@@ -62,21 +79,29 @@
 
     transition: width 0.1s ease;
   }
+  
   .start:focus::after,
   .start:hover::after {
     width: calc(100% - 50px);
   }
 
-
-
-  label{
-    margin-bottom: 10px;
+  input{
+    border: none;
+    border-bottom: 4px solid;
+    height: 1.5em;
+    font-size: 1.2em;
+    text-align: center;
+  }
+  input::placeholder{
+    opacity: .3;
   }
   input:valid{
-    border-color: rgb(58, 141, 58);
+    border-color: hsl(120, 100%, 70%);
   }
   input:invalid{
-    border-color: rgb(231, 45, 45);
+    border-color: hsl(7, 100%, 70%);
+
+    box-shadow: none;
   }
 
   figure {
@@ -88,22 +113,43 @@
     overflow: hidden;
     width: 100vw;
   }
+
+  .inpblock{
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* .anon{
+    display: flex;
+    align-items: center;
+    margin: 5px;
+  } */
+
 </style>
 <figure>
   <Logo />
 </figure>
 
-<h1>UiB Python</h1>
+<div class="outer">
+  <h1>UiB Python</h1>
 
-<div class="inpblock">
-  <label>Please enter your UIB Username:</label>
-  <input 
-    {pattern} 
-    placeholder="here" 
-    bind:this={input} 
-    on:keydown={handleEnter}
-    />
+  <div class="inpblock">
+    <!-- <div class="anon">I would like to stay anonymous<input type="checkbox" id=""></div> -->
+
+    Please enter your UIB Username:
+    <input 
+      {pattern} 
+      placeholder="ex; pat123" 
+      bind:this={input} 
+      bind:value
+      on:keydown={handleEnter}
+    >
+  </div>
+
+  <button
+    class="start" 
+    on:click={start}
+  >Start as {value ? value : 'anonymous'}</button>
+
 </div>
-
-<a class="start" href="/question" on:click={handleStart}>Start</a>
 
