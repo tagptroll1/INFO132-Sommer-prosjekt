@@ -12,7 +12,6 @@
   const pattern = `[a-zA-ZæøåÆØÅ]{3}\\d{3}`;
 
   let input;
-  let anon = false;
   let value = '';
 
 
@@ -51,6 +50,7 @@
     text-align: center;
     font-weight: 300;
     font-size: 3.2em;
+    margin-top: 30px;
   }
 
   .start {
@@ -121,11 +121,10 @@
     flex-direction: column;
   }
 
-  /* .anon{
-    display: flex;
-    align-items: center;
+  .inpblock span{
+    text-align: center;
     margin: 5px;
-  } */
+  }
 
 </style>
 <figure>
@@ -136,9 +135,8 @@
   <h1>UiB Python</h1>
 
   <div class="inpblock">
-    <!-- <div class="anon">I would like to stay anonymous<input type="checkbox" id=""></div> -->
 
-    Please enter your UIB Username:
+    <span>Please enter your UIB Username <br>(or leave blank to stay anonymous):</span>
     <input 
       {pattern} 
       placeholder="ex; pat123" 
