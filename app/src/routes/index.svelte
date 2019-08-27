@@ -40,6 +40,7 @@
       goto("/question");
     } else {
       if(numberOfAttempts >= 2){
+        //just go there anyway...jees...
         goto("/question");
       } else {
         input.classList.add('err');
