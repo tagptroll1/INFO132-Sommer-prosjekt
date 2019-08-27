@@ -12,7 +12,10 @@
   // Components
   import ProgressBar from "./_components/_ProgressBar.svelte";
 
+
+  let areYouSure = false;
   let interval;
+  
   onMount(() => {
     interval = setInterval(() => {
       if ($question.timeSpent === undefined) {
@@ -29,7 +32,6 @@
     }
   });
 
-  let areYouSure;
   let unanswered_index;
 
   function ensureAnswer() {
@@ -93,12 +95,14 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-    z-index: 5;
+    z-index: 50;
 
     background-color: lightgrey;
+    box-shadow: 1px 1px 1px 1px black;
+    text-align: center;
   }
 
-  .show {
+  article .show {
     display: block;
   }
 
