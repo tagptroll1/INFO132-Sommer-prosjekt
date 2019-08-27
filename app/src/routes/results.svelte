@@ -37,9 +37,10 @@
         question_id: q._id,
         selected_answer: q.answer.selected_answer,
         correct: q.answer.correct,
-        time_spent: 0
+        time_spent: q.timeSpent
       });
     });
+    console.log(dataset);
 
     await postData(dataset);
     let feedbacks = await getResponses(ids);
