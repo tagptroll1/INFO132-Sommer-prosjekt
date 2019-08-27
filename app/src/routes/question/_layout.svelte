@@ -1,6 +1,7 @@
 <script>
   export let segment;
   import { goto } from "@sapper/app";
+  import { onMount, onDestroy } from "svelte";
 
   // Stores
   import user from "../../stores/user";
@@ -10,6 +11,23 @@
 
   // Components
   import ProgressBar from "./_components/_ProgressBar.svelte";
+
+  let interval;
+  onMount(() => {
+    interval = setInterval(() => {
+      if ($question.timeSpent === undefined) {
+        $questions[$index].timeSpent = 0;
+      } else {
+        $questions[$index].timeSpent++;
+      }
+    }, 1000);
+  });
+
+  onDestroy(() => {
+    if (interval) {
+      clearInterval(interval);
+    }
+  });
 
   let areYouSure;
   let unanswered_index;
