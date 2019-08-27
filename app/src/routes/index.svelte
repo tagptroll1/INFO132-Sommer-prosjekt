@@ -29,39 +29,8 @@
   }
 
 </script>
-
-<article>
-  <h1>UiB Python</h1>
-
-    <label for="inp" style="text-align: center;">Please enter your UIB Username:</label>
-  <div>
-    <input 
-      {pattern} 
-      placeholder="here" 
-      bind:this={input} 
-      on:keydown={handleEnter}
-      autofocus
-
-      />
-  </div>
-
-  <a class="start" href="/question" on:click={handleStart}>Start</a>
-</article>
-
-<figure>
-  <Logo />
-</figure>
-
 <style>
-  article{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-  }
-
-  .start,
-  h1 {
+  *{
     color: var(--color-main);
   }
   h1 {
@@ -69,7 +38,6 @@
     font-weight: 300;
     font-size: 3.2em;
   }
-
   .start {
     text-decoration: none;
     padding: 10px 25px;
@@ -99,6 +67,18 @@
     width: calc(100% - 50px);
   }
 
+
+
+  label{
+    margin-bottom: 10px;
+  }
+  input:valid{
+    border-color: rgb(58, 141, 58);
+  }
+  input:invalid{
+    border-color: rgb(231, 45, 45);
+  }
+
   figure {
     position: fixed;
     z-index: -1;
@@ -108,33 +88,22 @@
     overflow: hidden;
     width: 100vw;
   }
-
-  label{
-    margin-bottom: 10px;
-  }
-
-  div{
-    display: flex;
-  }
-  div input{
-    border: none;
-    background-color: inherit;
-    border-bottom: 2px solid;
-    box-shadow: none;
-
-    margin-bottom: 20px;
-
-    font-family: var(--font-main);
-    font-size: 1em;
-    text-align: center;
-    width: 55px;
-  }
-
-  div input:valid{
-    border-color: rgb(58, 141, 58);
-  }
-  div input:invalid{
-    border-color: rgb(231, 45, 45);
-  }
-
 </style>
+<figure>
+  <Logo />
+</figure>
+
+<h1>UiB Python</h1>
+
+<div class="inpblock">
+  <label>Please enter your UIB Username:</label>
+  <input 
+    {pattern} 
+    placeholder="here" 
+    bind:this={input} 
+    on:keydown={handleEnter}
+    />
+</div>
+
+<a class="start" href="/question" on:click={handleStart}>Start</a>
+
