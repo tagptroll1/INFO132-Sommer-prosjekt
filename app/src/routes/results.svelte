@@ -19,15 +19,19 @@
     goto("/");
   }
 
+  let totalCorrect = 0;
   let datapack = init();
 
   async function init() {
+    totalCorrect = 0;
+
     const dataset = {
       start_time: $startDate,
       end_time: new Date(Date.now()),
       user: $user,
       questions: []
     };
+
     const ids = [];
     const return_value = [];
 
@@ -39,6 +43,7 @@
         correct: q.answer.correct,
         time_spent: 0
       });
+      if (q.answer.correct) totalCorrect++;
     });
 
     await postData(dataset);
@@ -102,9 +107,15 @@
     color: black;
     font-size: 2em;
   }
+
+  button {
+    margin: 10px;
+    padding: 10px;
+  }
 </style>
 
 <h1>Question results</h1>
+<p>Total correct answers {totalCorrect}/{$questions.length}</p>
 <button on:click={() => goto('/')}>Try again</button>
 {#await datapack}
   loading..
@@ -145,6 +156,6 @@
       </li>
     {/each}
   </ol>
-{:catch}
-  ...
+{:catch err}
+  {err}
 {/await}
