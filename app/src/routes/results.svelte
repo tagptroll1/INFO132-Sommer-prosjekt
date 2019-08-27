@@ -40,7 +40,6 @@
         time_spent: q.timeSpent
       });
     });
-    console.log(dataset);
 
     await postData(dataset);
     let feedbacks = await getResponses(ids);
