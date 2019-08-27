@@ -28,7 +28,9 @@
   function start(){
     if(input.checkValidity()){
       $user = input.value;
+      
       goto("/question");
+
     } else {
       value = '';
     }
