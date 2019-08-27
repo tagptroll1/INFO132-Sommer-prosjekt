@@ -1,6 +1,7 @@
 <script>
   export let segment;
   import { goto } from "@sapper/app";
+  import { onMount, onDestroy } from "svelte";
 
   // Stores
   import user from "../../stores/user";
@@ -11,7 +12,26 @@
   // Components
   import ProgressBar from "./_components/_ProgressBar.svelte";
 
-  let areYouSure;
+
+  let areYouSure = false;
+  let interval;
+  
+  onMount(() => {
+    interval = setInterval(() => {
+      if ($question.timeSpent === undefined) {
+        $questions[$index].timeSpent = 0;
+      } else {
+        $questions[$index].timeSpent++;
+      }
+    }, 1000);
+  });
+
+  onDestroy(() => {
+    if (interval) {
+      clearInterval(interval);
+    }
+  });
+
   let unanswered_index;
 
   function ensureAnswer() {
@@ -75,12 +95,14 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-    z-index: 5;
+    z-index: 50;
 
     background-color: lightgrey;
+    box-shadow: 1px 1px 1px 1px black;
+    text-align: center;
   }
 
-  .show {
+  article .show {
     display: block;
   }
 
