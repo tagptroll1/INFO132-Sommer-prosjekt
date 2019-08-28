@@ -4,7 +4,8 @@
   import { slide } from "svelte/transition";
 
   let isOpen = false;
-  let selected = "";
+  let selected = ""
+  let selected_show = "SE ALTERNATIVER"
 
   import questions from "../../../stores/questions";
   import question from "../../../stores/question";
@@ -14,16 +15,17 @@
 let showAlternatives = false;
 function handleSelect(event){
   selected = event.target.getAttribute("data-value");
-  //event.target.style.background = "grey"
+  selected_show = selected + " (Press to change)"
+  showAlternatives = false;
 }
 </script>
 
 <style>
-
+  
 </style>
 
 <section>
-<h1 on:click={()=>showAlternatives = !showAlternatives}>SE ALTERNATIVER</h1>
+<h1 on:click={()=>showAlternatives = !showAlternatives}>{selected_show}</h1>
 {#if showAlternatives}
   <div transition:slide>
     {#each $question.alternatives as alternative}
