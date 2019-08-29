@@ -219,8 +219,8 @@
 <svelte:window on:mousemove={mousemove}/>
 <canvas
 	bind:this={canvas}
-	width={10}
-	height={10}
+	width={32}
+	height={32}
 ></canvas>
 
 
