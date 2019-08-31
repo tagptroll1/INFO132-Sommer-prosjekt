@@ -1,6 +1,6 @@
 <script>
   import { goto } from "@sapper/app"
-  import { onMount } from "svelte";
+  import { onMount,onDestroy } from "svelte";
   import { slide, fade } from "svelte/transition"
 
   import user from "../stores/user.js";
@@ -16,12 +16,12 @@
   let canvas;
   let ctx;
   let color;
-  let mx,my;
   onMount(()=>{
     ctx = canvas.getContext('2d');
-    
+    let frame;
+
     function loop(t) {
-			requestAnimationFrame(loop);
+			frame = requestAnimationFrame(loop);
 
 			const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
@@ -42,12 +42,17 @@
 
 			ctx.putImageData(imageData, 0, 0);
     } requestAnimationFrame(loop);
+
+    return () => {
+			cancelAnimationFrame(frame);
+		};
   });
 
   const pattern = `[a-zA-ZæøåÆØÅ]{3}\\d{3}`;
 
   let input;
   let value = '';
+  let valid = true;
   let placeholder = "ex; rob404";
   let numberOfAttempts = 0;
   let wrongInput;
@@ -69,7 +74,9 @@
   }
 
   function start(){
-    if(input.checkValidity()){
+    valid = input.checkValidity()
+
+    if(valid){
       $user = input.value;
       goto("/question");
     } else {
@@ -99,12 +106,50 @@
       wrongInput = false;
     }, 3000);
   }
+  onDestroy(()=>clearTimeout(timer));
 
-  function mousemove(event){
-    mx = event.clientX;
-    my = event.clientY;
-  }
 </script>
+
+<canvas
+	bind:this={canvas}
+	width={32}
+	height={32}
+></canvas>
+
+<div class="outer">
+  <figure>
+    {#if value === 'python'}
+      <Logo2/>
+    {:else}
+      <Logo/>
+    {/if}
+  </figure>
+  <h1>UiB Python</h1>
+
+  <div class="inpblock">
+
+    <span class="info">Please enter your UIB Username <br>(or leave blank to stay anonymous):</span>
+    <input 
+      {pattern} 
+      {placeholder}
+      bind:this={input} 
+      bind:value
+      on:keydown={handleEnter}
+      on:animationend={feedbackCleanup}
+      on:input={()=>valid = input.checkValidity()}
+      maxlength="6"
+    >
+    {#if wrongInput}
+      <span transition:slide>Invalid format!<br>Try again or start as anonymous.</span>
+    {/if}
+  </div>
+
+  <button
+    class="start" 
+    on:click={start}
+  >Start as <b>{value ? value : 'anonymous'}</b></button>
+</div>
+
 <style>
   :global(.err){
     animation: shake 0.4s ease;
@@ -241,44 +286,3 @@
   }
 
 </style>
-<svelte:window on:mousemove={mousemove}/>
-<canvas
-	bind:this={canvas}
-	width={32}
-	height={32}
-></canvas>
-
-
-<div class="outer">
-  <figure>
-    {#if value === 'python'}
-      <Logo2/>
-    {:else}
-      <Logo/>
-    {/if}
-  </figure>
-  <h1>UiB Python</h1>
-
-  <div class="inpblock">
-
-    <span class="info">Please enter your UIB Username <br>(or leave blank to stay anonymous):</span>
-    <input 
-      {pattern} 
-      {placeholder}
-      bind:this={input} 
-      bind:value
-      on:keydown={handleEnter}
-      on:animationend={feedbackCleanup}
-      maxlength="6"
-    >
-    {#if wrongInput}
-      <span transition:slide>Invalid format!<br>Try again or start as anonymous.</span>
-    {/if}
-  </div>
-
-  <button
-    class="start" 
-    on:click={start}
-  >Start as <b>{value ? value : 'anonymous'}</b></button>
-</div>
-
