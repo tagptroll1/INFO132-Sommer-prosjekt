@@ -1,13 +1,14 @@
 <script>
   import { goto } from "@sapper/app"
   import { onMount } from "svelte";
-  import { slide } from "svelte/transition"
+  import { slide, fade } from "svelte/transition"
 
   import user from "../stores/user.js";
   import index from "../stores/index";
   import questions from "../stores/questions";
 
   import Logo from "../components/LogoUIB.svelte";
+  import Logo2 from "../components/LogoUIB_mpython.svelte";
 
   $index = 0;
   $questions = [];
@@ -17,11 +18,8 @@
   let color;
   let mx,my;
   onMount(()=>{
-    ctx = canvas.getContext('2d')
-
-    // color = getComputedStyle(document.documentElement)
-    //         .getPropertyValue('--bg-aside');
-
+    ctx = canvas.getContext('2d');
+    
     function loop(t) {
 			requestAnimationFrame(loop);
 
@@ -252,7 +250,13 @@
 
 
 <div class="outer">
-  <figure><Logo/></figure>
+  <figure>
+    {#if value === 'python'}
+      <Logo2/>
+    {:else}
+      <Logo/>
+    {/if}
+  </figure>
   <h1>UiB Python</h1>
 
   <div class="inpblock">
