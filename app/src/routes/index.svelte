@@ -1,6 +1,7 @@
 <script>
   import { goto } from "@sapper/app"
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
+  import { slide } from "svelte/transition"
 
   import user from "../stores/user.js";
   import index from "../stores/index";
@@ -51,6 +52,7 @@
   let value = '';
   let placeholder = "ex; rob404";
   let numberOfAttempts = 0;
+  let wrongInput;
 
   const alternatives = [
     'joe432',
@@ -60,25 +62,25 @@
   ]
 
   function handleEnter(event){
-    let key = event.key || event.keyCode;
-    if((key === 13 || key === "Enter") && input.checkValidity()){
-      event.preventDefault();
-
+    const key = event.key;
+    const code = event.keyCode;
+    if(key === "Enter" || code === 13){
       start();
+      event.preventDefault();
     }
   }
 
   function start(){
-
     if(input.checkValidity()){
       $user = input.value;
       goto("/question");
     } else {
-      if(numberOfAttempts >= 2){
+      if(numberOfAttempts >= 3){
         //just go there anyway...jees...
         goto("/question");
       } else {
         input.classList.add('err');
+        wrongInput = true;
       }
     }
   }
@@ -88,7 +90,16 @@
     value = '';
     const select = Math.floor(alternatives.length * Math.random())
     placeholder = `ex; ${alternatives[select]}`;
+    clearWarning();
     numberOfAttempts++;
+  }
+
+  let timer;
+  function clearWarning(){
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      wrongInput = false;
+    }, 3000);
   }
 
   function mousemove(event){
@@ -126,18 +137,25 @@
     margin: 10px 0;
   }
 
+  button:focus,
+  button::-moz-focus-inner{
+    outline: none;
+    border:none;
+  }
+
   .start {
     border: none;
     cursor: pointer;
 
-    text-decoration: none;
     padding: 10px 25px;
-    margin: 30px;
+    margin: 15px;
     color: var(--bg-main);
     background-color: var(--bg-focus);
     border-radius: 8px 4px;
 
     position: relative;
+
+    font-size: 1em;
   }
 
   .start::after {
@@ -149,12 +167,12 @@
     margin: 0 auto;
     width: 0;
     height: 3px;
-    border-radius: 1000px;
+    border-radius: 50px;
     background-color: var(--bg-main);
 
     transition: width 0.1s ease;
   }
-  
+
   .start:focus::after,
   .start:hover::after {
     width: calc(100% - 50px);
@@ -164,8 +182,10 @@
     border: none;
     border-bottom: 4px solid;
     height: 1.5em;
-    font-size: 1.2em;
+    font-size: 1.4em;
     text-align: center;
+
+    margin-bottom: 15px;
   }
   input::placeholder{
     opacity: .3;
@@ -189,6 +209,8 @@
 
     width: 100%;
 		height: 100%;
+
+    background-color: #a11c5a;
   }
 
   .inpblock{
@@ -210,10 +232,15 @@
   .inpblock input,.start{
     box-shadow: 1px 3px 1px -2px rgba(0, 0, 0, 0.3);
   }
-  h1,span{
+
+  h1,
+  span{
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   }
 
+  input + span{
+    font-weight: bold;
+  }
 
 </style>
 <svelte:window on:mousemove={mousemove}/>
@@ -230,7 +257,7 @@
 
   <div class="inpblock">
 
-    <span>Please enter your UIB Username <br>(or leave blank to stay anonymous):</span>
+    <span class="info">Please enter your UIB Username <br>(or leave blank to stay anonymous):</span>
     <input 
       {pattern} 
       {placeholder}
@@ -238,13 +265,16 @@
       bind:value
       on:keydown={handleEnter}
       on:animationend={feedbackCleanup}
+      maxlength="6"
     >
+    {#if wrongInput}
+      <span transition:slide>Invalid format!<br>Try again or start as anonymous.</span>
+    {/if}
   </div>
 
   <button
     class="start" 
     on:click={start}
   >Start as <b>{value ? value : 'anonymous'}</b></button>
-
 </div>
 
