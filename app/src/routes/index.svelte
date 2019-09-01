@@ -21,31 +21,31 @@
     let frame;
 
     function loop(t) {
-			frame = requestAnimationFrame(loop);
+      frame = requestAnimationFrame(loop);
 
-			const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-			for (let p = 0; p < imageData.data.length; p += 4) {
-				const i = p / 4;
-				const x = i % canvas.width;
-				const y = i / canvas.height >>> 0;
+      for (let p = 0; p < imageData.data.length; p += 4) {
+        const i = p / 4;
+        const x = i % canvas.width;
+        const y = i / canvas.height >>> 0;
 
-				const r = 64 + (128 * x / canvas.width) + (64 * Math.sin(t / 2500));
-				const g = 64 + (128 * y / canvas.height) + (64 * Math.cos(t / 2500));
-				const b = 128;
+        const r = 64 + (128 * x / canvas.width) + (64 * Math.sin(t / 2500));
+        const g = 64 + (128 * y / canvas.height) + (64 * Math.cos(t / 2500));
+        const b = 128;
 
-				imageData.data[p + 0] = r * .9;
-				imageData.data[p + 1] = g * .4;
-				imageData.data[p + 2] = b * .7;
-				imageData.data[p + 3] = 255;
-			}
+        imageData.data[p + 0] = r * .9;
+        imageData.data[p + 1] = g * .4;
+        imageData.data[p + 2] = b * .7;
+        imageData.data[p + 3] = 255;
+      }
 
-			ctx.putImageData(imageData, 0, 0);
+      ctx.putImageData(imageData, 0, 0);
     } requestAnimationFrame(loop);
 
     return () => {
-			cancelAnimationFrame(frame);
-		};
+      cancelAnimationFrame(frame);
+    };
   });
 
   const pattern = `[a-zA-ZæøåÆØÅ]{3}\\d{3}`;
@@ -90,9 +90,9 @@
 </script>
 
 <canvas
-	bind:this={canvas}
-	width={32}
-	height={32}
+  bind:this={canvas}
+  width={32}
+  height={32}
 ></canvas>
 
 <div class="outer">
@@ -134,12 +134,12 @@
     animation: shake 0.4s ease;
   }
   @keyframes shake{
-			0% { transform: translate(10px); }
-			20% { transform: translate(-10px); }
-			40% { transform: translate(5px); }
-			60% { transform: translate(-5px); }
-			80% { transform: translate(3px); }
-			100% { transform: translate(0px); }
+      0% { transform: translate(10px); }
+      20% { transform: translate(-10px); }
+      40% { transform: translate(5px); }
+      60% { transform: translate(-5px); }
+      80% { transform: translate(3px); }
+      100% { transform: translate(0px); }
   }
 
   .outer{
@@ -239,7 +239,7 @@
     overflow: hidden;
 
     width: 100%;
-		height: 100%;
+    height: 100%;
 
     background-color: #a11c5a;
   }
