@@ -30,8 +30,7 @@
 
   beforeUpdate(() => {
     if (prev_id !== $question._id && !$question.answer) {
-      selected = undefined;
-      selectElem...
+      selected = '';
     }
 
     piece1 = hljs.highlight("python", pieces[0]);
