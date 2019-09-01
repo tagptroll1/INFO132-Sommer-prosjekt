@@ -1,7 +1,7 @@
 <script>
   import { goto } from "@sapper/app"
   import { onMount,onDestroy } from "svelte";
-  import { slide, fade } from "svelte/transition"
+  import { slide, fade } from "svelte/transition";
 
   import user from "../stores/user.js";
   import index from "../stores/index";
