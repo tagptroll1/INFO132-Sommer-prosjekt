@@ -8,7 +8,6 @@
   import { beforeUpdate } from "svelte";
 
   $: selected = $question.answer && $question.answer.selected_answer;
-  let selectElem;
 
   hljs.registerLanguage("python", python);
 
@@ -50,7 +49,7 @@
 
 <pre>
   <code>
-    {@html piece1.value} <select bind:this={selectElem} bind:value={selected} on:change={disp}>
+    {@html piece1.value} <select bind:value={selected} on:change={disp}>
       <option value="" />
       {#each $question.alternatives as item}
         <option value={item}>{item}</option>
