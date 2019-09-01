@@ -83,30 +83,9 @@
       if(numberOfAttempts >= 3){
         //just go there anyway...jees...
         goto("/question");
-      } else {
-        input.classList.add('err');
-        wrongInput = true;
-      }
+      } 
     }
   }
-
-  function feedbackCleanup(){
-    input.classList.remove('err');
-    value = '';
-    const select = Math.floor(alternatives.length * Math.random())
-    placeholder = `ex; ${alternatives[select]}`;
-    clearWarning();
-    numberOfAttempts++;
-  }
-
-  let timer;
-  function clearWarning(){
-    clearTimeout(timer)
-    timer = setTimeout(() => {
-      wrongInput = false;
-    }, 3000);
-  }
-  onDestroy(()=>clearTimeout(timer));
 
 </script>
 
@@ -128,14 +107,13 @@
 
   <div class="inpblock">
 
-    <span class="info">Please enter your UIB Username <br>(or leave blank to stay anonymous):</span>
+    <span class="info">Please enter your UIB Username <br>(or <b>leave blank</b> to stay anonymous):</span>
     <input 
       {pattern} 
       {placeholder}
       bind:this={input} 
       bind:value
       on:keydown={handleEnter}
-      on:animationend={feedbackCleanup}
       on:input={()=>valid = input.checkValidity()}
       maxlength="6"
     >
@@ -145,6 +123,7 @@
   </div>
 
   <button
+    disabled={!valid || null}
     class="start" 
     on:click={start}
   >Start as <b>{value ? value : 'anonymous'}</b></button>
@@ -186,6 +165,8 @@
     border:none;
   }
 
+
+
   .start {
     border: none;
     cursor: pointer;
@@ -199,8 +180,14 @@
     position: relative;
 
     font-size: 1em;
+
+    transition: opacity .2s;
   }
 
+  .start:disabled{
+      opacity: .5;
+  }
+  
   .start::after {
     content: "";
     display: block;
