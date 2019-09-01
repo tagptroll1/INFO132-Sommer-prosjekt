@@ -186,9 +186,10 @@
 
   .start:disabled{
       opacity: .5;
+      cursor: unset;
   }
   
-  .start::after {
+  .start:not(:disabled)::after {
     content: "";
     display: block;
     position: absolute;
