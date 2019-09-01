@@ -61,7 +61,7 @@
     'joe432',
     'tom233',
     'aar444',
-    'jef007'
+    'jef007',
   ]
 
   function handleEnter(event){
@@ -74,7 +74,7 @@
   }
 
   function start(){
-    valid = input.checkValidity()
+    valid = input.checkValidity();
 
     if(valid){
       $user = input.value;
@@ -164,8 +164,6 @@
     outline: none;
     border:none;
   }
-
-
 
   .start {
     border: none;
