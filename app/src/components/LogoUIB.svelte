@@ -1,6 +1,6 @@
 <style>
   svg {
-    fill: var(--bg-aside);
+    fill: var(--bg-main);
     height: 100%;
   }
 </style>
