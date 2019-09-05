@@ -22,7 +22,11 @@
 
   $: text = parseText($question.question_text);
 </script>
-
+<style>
+  p{
+    max-width: 600px;
+  }
+</style>
 <p>
   {@html text}
 </p>

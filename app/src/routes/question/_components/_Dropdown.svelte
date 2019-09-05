@@ -39,14 +39,6 @@
   });
 </script>
 
-<style>
-  code {
-    display: block;
-    border-radius: 8px 4px;
-    background-color: var(--bg-aside);
-  }
-</style>
-
 <pre>
   <code>
     {@html piece1.value} <select bind:value={selected} on:change={disp}>
