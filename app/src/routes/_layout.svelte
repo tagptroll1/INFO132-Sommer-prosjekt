@@ -4,11 +4,16 @@
 
 <style>
   main {
+    position: relative;
+    z-index: 1;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+
+    background-color: rgb(184, 216, 209);
   }
 </style>
 

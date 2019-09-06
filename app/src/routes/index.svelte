@@ -130,18 +130,6 @@
 </div>
 
 <style>
-  :global(.err){
-    animation: shake 0.4s ease;
-  }
-  @keyframes shake{
-      0% { transform: translate(10px); }
-      20% { transform: translate(-10px); }
-      40% { transform: translate(5px); }
-      60% { transform: translate(-5px); }
-      80% { transform: translate(3px); }
-      100% { transform: translate(0px); }
-  }
-
   .outer{
     color: var(--bg-main);
     display: flex;
@@ -239,7 +227,7 @@
     width: 100%;
     height: 100%;
 
-    background-color: #a11c5a;
+    background-color: #64344b;
   }
 
   .inpblock{
