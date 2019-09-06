@@ -67,10 +67,10 @@
   }
 
   .selected {
-    font-style: bold;
-    background-color: rgb(109, 109, 109);
-    color: rgb(255, 255, 255);
-    }
+    font-weight: bold;
+    background-color: rgb(197, 197, 197);
+    color: rgb(0, 0, 0);
+  }
 </style>
 
 <div id="choices">

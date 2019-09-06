@@ -5,7 +5,7 @@
   import user from "../../../stores/user";
   import hljs from "highlight.js/lib/highlight";
   import python from "highlight.js/lib/languages/python";
-  import { beforeUpdate } from "svelte";
+  import { afterUpdate } from "svelte";
 
   $: selected = $question.answer && $question.answer.selected_answer;
 
@@ -27,7 +27,7 @@
     };
   }
 
-  beforeUpdate(() => {
+  afterUpdate(() => {
     if (prev_id !== $question._id && !$question.answer) {
       selected = '';
     }
