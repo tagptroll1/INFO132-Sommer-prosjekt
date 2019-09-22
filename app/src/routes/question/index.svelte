@@ -12,6 +12,10 @@
     while ($questions.length <= 0 && process.browser && count < 10) {
       try {
         const resp = await fetch(`api/${type}`); // Change this to get different questions
+        if (!resp.ok) {
+          continue;
+        }
+
         const json = await resp.json();
         $questions = json;
       } catch (err) {
