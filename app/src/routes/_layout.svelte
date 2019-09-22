@@ -13,7 +13,7 @@
     align-items: center;
     min-height: 100vh;
 
-    background-color: rgb(184, 216, 209);
+    background-color: rgb(231, 231, 231);
   }
 </style>
 

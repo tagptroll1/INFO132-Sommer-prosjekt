@@ -31,10 +31,10 @@
     cursor: pointer;
 
     outline: none;
-    font-size: 20px;
+    font-size: 1em;
 
-    padding: 0.35em 1.2em;
-    margin: 0 0.3em 0.3em 0;
+    padding: 5px 10px;
+    margin: 10px  0;
 
     display: block;
     width: 100%;
@@ -49,14 +49,15 @@
     color: rgb(221, 221, 221);
     background-color: rgb(47, 47, 47);    
 
-    border: none;
+    border:none;
+    border-left: 5px solid rgb(0, 0, 0);
   }
   button:hover {
     color: #ffffff;
     background-color: black;
   }
   #choices {
-    padding: 40px;
+    margin: 40px;
   }
   li {
     list-style: none;
@@ -68,8 +69,7 @@
 
   .selected {
     font-weight: bold;
-    background-color: rgb(197, 197, 197);
-    color: rgb(0, 0, 0);
+    border-left: 5px solid rgb(100, 155, 255);
   }
 </style>
 
