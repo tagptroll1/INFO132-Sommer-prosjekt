@@ -18,6 +18,10 @@
 
         const json = await resp.json();
         $questions = json;
+
+        if (json.length > 0) {
+          return json;
+        }
       } catch (err) {
         if (count === 9) {
           throw err;
